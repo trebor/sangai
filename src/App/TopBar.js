@@ -25,7 +25,7 @@ export default function TopBar() {
         <Toolbar>
           <Typography variant="h3">🇳🇵</Typography>
           <Typography variant="h5" component="div" sx={{ flexGrow: 1 }}>
-            Sam̐gai
+            San̐gai
           </Typography>
           <div>
             <IconButton

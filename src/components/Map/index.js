@@ -1,18 +1,18 @@
 import './mapbox-gl.css';
 import './map.css';
 
-import {useState} from 'react';
 import ReactMapGl from 'react-map-gl';
 import ControlPanel from './ControlPanel';
+import { useState } from 'react';
 
-import SpaceLayer from "./SpaceLayer";
-import WaterLayer from "./WaterLayer";
+import PublicGoodsLayer from "./PublicGoodsLayer";
 import WardLayer from "./WardLayer";
 
 const MAPBOX_TOKEN = 'pk.eyJ1IjoidHJlYm9yZXNxdWUiLCJhIjoiY2o1eDNwaXN6MDBjczJ3cW81ODB5MXVhaiJ9.laxgliFuMkrQdZEMiEofaw';
 
 const Map = () => {
   const [mapStyle, setMapStyle] = useState(null);
+
 
   return (
     <>
@@ -27,8 +27,7 @@ const Map = () => {
         mapboxAccessToken={MAPBOX_TOKEN}
       >
         <WardLayer />
-        <SpaceLayer />
-        <WaterLayer />
+        <PublicGoodsLayer />
       </ReactMapGl>
       <div style={{visibility: "hidden"}}>
         <ControlPanel onChange={setMapStyle} />

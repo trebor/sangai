@@ -1,6 +1,6 @@
 import { Source, Layer } from 'react-map-gl';
-
-import wards from 'data/nepal-wards.json';
+import { useRecoilValue } from 'recoil';
+import { filteredWardsState } from "state";
 
 const configuration = {
   id: 'wards',
@@ -13,8 +13,7 @@ const configuration = {
 };
 
 const WardLayer = () => {
-  wards.features = wards.features
-    .filter(d => d.properties.district === "DHANKUTA");
+  const wards = useRecoilValue(filteredWardsState);
 
   return (
     <Source type="geojson" data={wards}>
