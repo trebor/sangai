@@ -1,3 +1,13 @@
+# This project currently uses:
+
+- [Create React App](https://github.com/facebook/create-react-app) - build environment
+- [React](https://reactjs.org/) - development framework
+- [Recoil](https://recoiljs.org/) - application state
+- [MUI](https://mui.com/) - widgets
+- [React Map GL](https://visgl.github.io/react-map-gl/) - mapping
+
+What follows is the boiler-plate Create React App documentation.
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
