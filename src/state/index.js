@@ -1,4 +1,7 @@
-import { selector } from "recoil";
+import { deepOrange as primary } from '@mui/material/colors';
+import { createTheme } from '@mui/material/styles';
+import { atom, selector } from "recoil";
+
 import { fetchPublicGoods, fetchWards } from "api";
 
 export const publicGoodsState = selector({
@@ -21,4 +24,16 @@ export const filteredWardsState = selector({
       features: wards.features.filter(d => d.properties.district === "DHANKUTA")
     }
   }
+});
+
+const themeOverride = {
+  palette: {
+    primary,
+  }
+}
+
+export const themeState = atom({
+  key: "theme",
+  default: createTheme(themeOverride),
+  dangerouslyAllowMutability: true
 });
