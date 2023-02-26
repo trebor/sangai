@@ -1,4 +1,4 @@
-import { deepOrange as primary } from '@mui/material/colors';
+import { orange as primary } from '@mui/material/colors';
 import { createTheme } from '@mui/material/styles';
 import { atom, selector } from "recoil";
 
