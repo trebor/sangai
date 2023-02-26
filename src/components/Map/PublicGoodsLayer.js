@@ -18,10 +18,6 @@ const configuration = {
 
 const PublicGoodsLayer = () => {
   const publicGoods = useRecoilValue(publicGoodsState);
-  console.log('publicGoods', publicGoods);
-  const types = [...new Set(publicGoods.features.map(d => d.properties.type))];
-  console.log('types', types);
-
 
   return (
     <Source type="geojson" data={publicGoods}>
