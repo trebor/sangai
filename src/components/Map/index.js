@@ -1,31 +1,39 @@
+import ControlPanel from './ControlPanel';
+import ReactMapGl, { useMap } from 'react-map-gl';
+import { useEffect, useState } from 'react';
+import { geoBounds, geoCentroid } from "d3-geo";
+
 import './mapbox-gl.css';
 import './map.css';
-
-import ReactMapGl from 'react-map-gl';
-import ControlPanel from './ControlPanel';
-import { useState } from 'react';
-
-import PublicGoodsLayer from "./PublicGoodsLayer";
 import WardLayer from "./WardLayer";
+import PublicGoodsLayer from "./PublicGoodsLayer";
+import { useRecoilValue } from 'recoil';
+import { filteredWardsState } from "state";
 
 const MAPBOX_TOKEN = 'pk.eyJ1IjoidHJlYm9yZXNxdWUiLCJhIjoiY2o1eDNwaXN6MDBjczJ3cW81ODB5MXVhaiJ9.laxgliFuMkrQdZEMiEofaw';
+
+const MapInteraction = () => {
+  const { current: map } = useMap();
+  const wards = useRecoilValue(filteredWardsState);
+
+  useEffect(() => {
+    map.fitBounds(geoBounds(wards), {padding: 40, duration: 1000});
+  }, [wards, map]);
+
+  return null;
+}
 
 const Map = () => {
   const [mapStyle, setMapStyle] = useState(null);
 
-
   return (
     <>
       <ReactMapGl
-        initialViewState={{
-          latitude: 27.0,
-          longitude: 87.340469,
-          zoom: 10
-        }}
         mapStyle={mapStyle && mapStyle.toJS()}
         styleDiffing
         mapboxAccessToken={MAPBOX_TOKEN}
       >
+        <MapInteraction/>
         <WardLayer />
         <PublicGoodsLayer />
       </ReactMapGl>
