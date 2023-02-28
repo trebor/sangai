@@ -8,7 +8,7 @@ import {
   fetchProvinces,
   fetchDistricts,
   fetchMunicipalities,
-  fetchWards
+  fetchWardsGeojson
 } from "api";
 
 // goods
@@ -76,21 +76,22 @@ export const selectedMunicipalityState = atom({
   })
 });
 
+// wards
 
-export const wardsState = selector({
-  key: "wards",
-  get: fetchWards
+export const wardsGeojsonState = selector({
+  key: "wardsGeojson",
+  get: fetchWardsGeojson
 });
 
-export const filteredWardsState = selector({
-  key: "filteredWards",
+export const filteredWardsGeojsonState = selector({
+  key: "filteredWardsGeojson",
   get: ({ get }) => {
-    const wards = get(wardsState);
+    const wardsGeojson = get(wardsGeojsonState);
     const selectedDistrict = get(selectedDistrictState).name.toLowerCase();
 
     return {
-      ...wards,
-      features: wards.features.filter(
+      ...wardsGeojson,
+      features: wardsGeojson.features.filter(
         d => d.properties.district.toLowerCase() === selectedDistrict)
     }
   }
