@@ -2,8 +2,22 @@ import { createTheme } from '@mui/material/styles';
 import { atom, selector } from "recoil";
 import { orange as primary } from '@mui/material/colors';
 
-import { titelize } from "utility";
-import { fetchPublicGoods, fetchWards } from "api";
+import { titelize, DEFAULT_DISTRICT } from "utility";
+import { fetchGoodTypes, fetchPublicGoods, fetchWards } from "api";
+
+
+export const goodTypesState = selector({
+  key: "goodTypes",
+  get: fetchGoodTypes,
+});
+
+export const selectedGoodTypesState = atom({
+  key: "selectedGoodTypes",
+  default: selector({
+    key: "selectedGoodTypesDefault",
+    get: ({ get }) => get(goodTypesState).slice(0, 1)
+  })
+});
 
 export const publicGoodsState = selector({
   key: "publicGoods",
@@ -12,7 +26,7 @@ export const publicGoodsState = selector({
 
 export const wardsState = selector({
   key: "wards",
-  get: () => fetchWards()
+  get: fetchWards
 });
 
 export const districtsState = selector({
@@ -26,7 +40,7 @@ export const districtsState = selector({
 
 export const selectedDistrictState = atom({
   key: "selecteDistrict",
-  default: "Dhankuta",
+  default: DEFAULT_DISTRICT
 });
 
 export const filteredWardsState = selector({

@@ -5,6 +5,7 @@ import { useRecoilValue } from 'recoil';
 import './App.css';
 import Map from 'components/Map';
 import TopBar from './TopBar';
+import LeftBar from './LeftBar';
 import { themeState } from 'state';
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
       }}>
         <TopBar />
         <Box sx={{ display: "flex", flex: "1 1 0" }}>
+          <LeftBar />
           <Map />
         </Box>
       </Box>

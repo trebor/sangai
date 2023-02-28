@@ -1,3 +1,6 @@
+export const DEFAULT_DISTRICT = "Dhankuta";
+export const API_HOST_NAME = "sangai.sujit.net.np";
+
 export const titelize = (string, replacementMap = {}) => {
   if (string === null) return "NULL";
   if (typeof string === "undefined") return "UNDEFINED";
@@ -21,3 +24,7 @@ export const titelize = (string, replacementMap = {}) => {
     capitalizedString
   );
 }
+
+export const getUserLang = () =>
+  (navigator.language || navigator.userLanguage).split("-")[0]
+
