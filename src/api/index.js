@@ -27,7 +27,10 @@ export const fetchDistricts = (provinceId) =>
 export const fetchMunicipalities = (districtId) =>
   apiFetch(`location/district/${districtId}/`);
 export const fetchWards = (municipalityId) =>
-  apiFetch(`location/municipality/${municipalityId}/`);
+apiFetch(`location/municipality/${municipalityId}/`).then(
+  wards => wards.map(({ name, id}) =>
+    ({ name: `Ward ${name}`, id: name, mapId: parseInt(id) })
+  ));
 
 const apiFetch = path => fetch(
   `https://${API_HOST_NAME}/api/${path}?ln=${getUserLang()}`,

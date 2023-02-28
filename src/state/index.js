@@ -107,16 +107,16 @@ export const selectedMunicipalityState = atom({
 
 export const wardsState = selector({
   key: "wardsjson",
-  // get: ({ get }) => {
-  //   const id = get(selectedMunicipalityState).id;
-  //   return fetchWards(id);
-  // },
   get: ({ get }) => {
-    return [
-      { id: 1, name: "Ward 1" },
-      { id: 7, name: "Ward 7" },
-    ]
-  }
+    const id = get(selectedMunicipalityState).id;
+    return fetchWards(id);
+  },
+  // get: ({ get }) => {
+  //   return [
+  //     { id: 1, name: "Ward 1" },
+  //     { id: 7, name: "Ward 7" },
+  //   ]
+  // }
 });
 
 export const selectedWardState = atom({
