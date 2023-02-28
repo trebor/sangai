@@ -78,6 +78,24 @@ export const selectedMunicipalityState = atom({
 
 // wards
 
+export const wardsState = selector({
+  key: "wardsjson",
+  get: ({ get }) => {
+    return [
+      { id: 1, name: "Ward 1" },
+      { id: 1, name: "Ward 7" },
+    ]
+  }
+});
+
+export const selectedWardState = atom({
+  key: "selectedWard",
+  default: selector({
+    key: "selectedWardsDefault",
+    get: ({ get }) => get(wardsState)[0]
+  })
+});
+
 export const wardsGeojsonState = selector({
   key: "wardsGeojson",
   get: fetchWardsGeojson

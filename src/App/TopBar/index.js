@@ -3,6 +3,7 @@ import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 
+import WardSelector from "./WardSelector";
 import DistrictSelector from "./DistrictSelector";
 import ProvinceSelector from "./ProvinceSelector";
 import MunicipalitySelector from "./MunicipalitySelector";
@@ -19,6 +20,7 @@ export default function TopBar() {
           <ProvinceSelector />
           <DistrictSelector />
           <MunicipalitySelector />
+          <WardSelector />
         </Toolbar>
       </AppBar>
     </Box>
