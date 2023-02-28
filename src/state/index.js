@@ -1,6 +1,8 @@
 import { createTheme } from '@mui/material/styles';
-import { atom, selector, selectorFamily } from "recoil";
+import { schemeDark2 } from "d3-scale-chromatic";
+import { scaleOrdinal } from "d3-scale";
 import { orange as primary } from '@mui/material/colors';
+import { atom, selector, selectorFamily } from "recoil";
 
 import {
   fetchGoodTypes,
@@ -13,23 +15,35 @@ import {
 
 // goods
 
+export const goodColorsState = atom({
+  key: "goodColors",
+  default: scaleOrdinal(schemeDark2),
+});
+
 export const goodTypesState = selector({
   key: "goodTypes",
-  get: fetchGoodTypes,
+  get: ({ get }) => fetchGoodTypes().then(goodTypes => goodTypes
+      .map(goodType => ({
+        ...goodType,
+        color: get(goodColorsState)(goodType.id)
+      }))
+      .sort((a, b) => a.name.localeCompare(b.name))
+  ),
 });
 
 export const selectedGoodTypesState = atom({
   key: "selectedGoodTypes",
   default: selector({
     key: "selectedGoodTypesDefault",
-    get: ({ get }) => get(goodTypesState).slice(5, 6)
+    get: ({ get }) => [get(goodTypesState)[0]]
   })
 });
 
 export const publicGoodsState = selector({
   key: "publicGoods",
   get: ({ get }) => get(selectedGoodTypesState)
-    .map(goodType => get(publicGoodState(goodType))).flat()
+    .map(goodType => get(publicGoodState(goodType)))
+    .flat()
 });
 
 export const publicGoodState = selectorFamily({
