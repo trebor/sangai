@@ -3,7 +3,7 @@ import { ThemeProvider } from '@mui/material/styles';
 import { useRecoilValue } from 'recoil';
 
 import './App.css';
-import Map from 'components/Map';
+import Map from './Map';
 import TopBar from './TopBar';
 import LeftBar from './LeftBar';
 import { themeState } from 'state';
