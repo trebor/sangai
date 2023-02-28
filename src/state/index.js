@@ -22,13 +22,19 @@ export const selectedGoodTypesState = atom({
   key: "selectedGoodTypes",
   default: selector({
     key: "selectedGoodTypesDefault",
-    get: ({ get }) => get(goodTypesState).slice(0, 1)
+    get: ({ get }) => get(goodTypesState).slice(5, 6)
   })
 });
 
 export const publicGoodsState = selector({
   key: "publicGoods",
-  get: fetchPublicGoods
+  get: ({ get }) => fetchPublicGoods(
+    get(selectedProvinceState).id,
+    get(selectedDistrictState).id,
+    get(selectedMunicipalityState).id,
+    get(selectedWardState).id,
+    get(selectedGoodTypesState)[0].id,
+  )
 });
 
 // provinces
