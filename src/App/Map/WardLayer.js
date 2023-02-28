@@ -1,6 +1,6 @@
 import { Source, Layer } from 'react-map-gl';
 import { useRecoilValue } from 'recoil';
-import { filteredWardsGeojsonState } from "state";
+import { districtGeojsonState, wardGeojsonState } from "state";
 
 const configuration = {
   id: 'wards',
@@ -13,10 +13,11 @@ const configuration = {
 };
 
 const WardLayer = () => {
-  const wardsGeojson = useRecoilValue(filteredWardsGeojsonState);
+  const districtGeojson = useRecoilValue(districtGeojsonState);
+  const wardGeojson = useRecoilValue(wardGeojsonState);
 
   return (
-    <Source type="geojson" data={wardsGeojson}>
+    <Source type="geojson" data={districtGeojson}>
       <Layer {...configuration} />
     </Source>
   );

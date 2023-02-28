@@ -26,8 +26,8 @@ export const fetchDistricts = (provinceId) =>
   apiFetch(`location/province/${provinceId}/`);
 export const fetchMunicipalities = (districtId) =>
   apiFetch(`location/district/${districtId}/`);
-export const fetchWards2 = (municipalityId) =>
-  apiFetch(`location/ward/${municipalityId}/`);
+export const fetchWards = (municipalityId) =>
+  apiFetch(`location/municipality/${municipalityId}/`);
 
 const apiFetch = path => fetch(
   `https://${API_HOST_NAME}/api/${path}?ln=${getUserLang()}`,

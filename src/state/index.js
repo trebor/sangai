@@ -10,6 +10,7 @@ import {
   fetchProvinces,
   fetchDistricts,
   fetchMunicipalities,
+  fetchWards,
   fetchWardsGeojson
 } from "api";
 
@@ -106,6 +107,10 @@ export const selectedMunicipalityState = atom({
 
 export const wardsState = selector({
   key: "wardsjson",
+  // get: ({ get }) => {
+  //   const id = get(selectedMunicipalityState).id;
+  //   return fetchWards(id);
+  // },
   get: ({ get }) => {
     return [
       { id: 1, name: "Ward 1" },
@@ -127,8 +132,8 @@ export const wardsGeojsonState = selector({
   get: fetchWardsGeojson
 });
 
-export const filteredWardsGeojsonState = selector({
-  key: "filteredWardsGeojson",
+export const districtGeojsonState = selector({
+  key: "districtGeojson",
   get: ({ get }) => {
     const wardsGeojson = get(wardsGeojsonState);
     const selectedDistrict = get(selectedDistrictState).name.toLowerCase();
@@ -137,6 +142,27 @@ export const filteredWardsGeojsonState = selector({
       ...wardsGeojson,
       features: wardsGeojson.features.filter(
         d => d.properties.district.toLowerCase() === selectedDistrict)
+    }
+  }
+});
+
+export const wardGeojsonState = selector({
+  key: "wardGeojson",
+  get: ({ get }) => {
+    const districtGeojson = get(districtGeojsonState);
+    const selectedMunicipalityId = get(selectedMunicipalityState).id;
+    const selectedWardId = get(selectedWardState).id;
+    console.log('selectedWardId', selectedWardId);
+    console.log('selectedMunicipalityId', selectedMunicipalityId);
+
+    // districtGeojson.features.map(d => d.properties.
+
+    return {
+      ...districtGeojson,
+      features: districtGeojson.features.filter(
+        d => d.properties.new_ward_n === selectedWardId
+        && d.properties.sddmm === selectedMunicipalityId
+      )
     }
   }
 });
