@@ -1,5 +1,5 @@
 import { createTheme } from '@mui/material/styles';
-import { schemeDark2 } from "d3-scale-chromatic";
+import { schemeTableau10 } from "d3-scale-chromatic";
 import { scaleOrdinal } from "d3-scale";
 import { orange as primary } from '@mui/material/colors';
 import { atom, selector, selectorFamily } from "recoil";
@@ -17,7 +17,7 @@ import {
 
 export const goodColorsState = atom({
   key: "goodColors",
-  default: scaleOrdinal(schemeDark2),
+  default: scaleOrdinal(schemeTableau10),
 });
 
 export const goodTypesState = selector({

@@ -22,6 +22,9 @@ body {
   text-transform: uppercase;
   outline: none;
 }
+/* .mapboxgl-map { */
+/*   z-index: -1; */
+/* } */
 
 label {
   display: inline-block;

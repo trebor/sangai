@@ -26,9 +26,6 @@ const PublicGoodsLayer = () => {
     }
   };
 
-  console.log('shape', shape);
-  console.log('configuration', configuration);
-
   return (
     <Source type="geojson" data={shape}>
       <Layer {...configuration} />

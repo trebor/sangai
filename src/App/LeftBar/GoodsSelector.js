@@ -17,7 +17,7 @@ export default function GoodSelector() {
   }
 
   return (
-    <Box flex="1 1 0">
+    <Box>
       <Typography variant="h5" align="center" sx={{p: 2}}>
         Public Goods
       </Typography>
@@ -27,7 +27,7 @@ export default function GoodSelector() {
         value={selectedGoods}
         onChange={handleChange}
         aria-label="Public Good"
-        sx={{minWidth: "12em"}}
+        sx={{minWidth: "12em", width: "18em"}}
       >
         {goods.map(good => (
           <ToggleButton key={good.id} value={good}>
