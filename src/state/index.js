@@ -109,7 +109,7 @@ export const wardsState = selector({
   get: ({ get }) => {
     return [
       { id: 1, name: "Ward 1" },
-      { id: 1, name: "Ward 7" },
+      { id: 7, name: "Ward 7" },
     ]
   }
 });
