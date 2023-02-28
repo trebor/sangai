@@ -4,6 +4,8 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 
 import DistrictSelector from "./DistrictSelector";
+import ProvinceSelector from "./ProvinceSelector";
+import MunicipalitySelector from "./MunicipalitySelector";
 
 export default function TopBar() {
   return (
@@ -14,7 +16,9 @@ export default function TopBar() {
           <Typography variant="h5" component="div" sx={{ flexGrow: 1 }}>
             San̐gai
           </Typography>
+          <ProvinceSelector />
           <DistrictSelector />
+          <MunicipalitySelector />
         </Toolbar>
       </AppBar>
     </Box>

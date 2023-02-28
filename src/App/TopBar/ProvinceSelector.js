@@ -4,26 +4,26 @@ import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
 import { useRecoilState, useRecoilValue } from "recoil";
 
-import { districtsState, selectedDistrictState } from "state";
+import { provincesState, selectedProvinceState } from "state";
 
-export default function DistrictSelector() {
-  const [district, setDistrict] = useRecoilState(selectedDistrictState);
-  const districts = useRecoilValue(districtsState);
+export default function ProvinceSelector() {
+  const [province, setProvince] = useRecoilState(selectedProvinceState);
+  const provinces = useRecoilValue(provincesState);
 
   const handleChange = (event) => {
-    setDistrict(event.target.value);
+    setProvince(event.target.value);
   };
 
   return (
     <div>
       <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
-        <InputLabel id="demo-simple-select-standard-label">District</InputLabel>
+        <InputLabel id="demo-simple-select-standard-label">Province</InputLabel>
         <Select
-          value={district}
+          value={province}
           onChange={handleChange}
-          label="District"
+          label="Province"
         >
-          {districts.map(d => (
+          {provinces.map(d => (
             <MenuItem key={d.id} value={d}>{d.name}</MenuItem>
           ))}
         </Select>

@@ -2,9 +2,16 @@ import { createTheme } from '@mui/material/styles';
 import { atom, selector } from "recoil";
 import { orange as primary } from '@mui/material/colors';
 
-import { titelize, DEFAULT_DISTRICT } from "utility";
-import { fetchGoodTypes, fetchPublicGoods, fetchWards } from "api";
+import {
+  fetchGoodTypes,
+  fetchPublicGoods,
+  fetchProvinces,
+  fetchDistricts,
+  fetchMunicipalities,
+  fetchWards
+} from "api";
 
+// goods
 
 export const goodTypesState = selector({
   key: "goodTypes",
@@ -21,33 +28,65 @@ export const selectedGoodTypesState = atom({
 
 export const publicGoodsState = selector({
   key: "publicGoods",
-  get: () => fetchPublicGoods()
+  get: fetchPublicGoods
 });
+
+// provinces
+
+export const provincesState = selector({
+  key: "provinces",
+  get: fetchProvinces
+});
+
+export const selectedProvinceState = atom({
+  key: "selectedProvince",
+  default: selector({
+    key: "selectedProvincesDefault",
+    get: ({ get }) => get(provincesState)[0]
+  })
+});
+
+// districts
+
+export const districtsState = selector({
+  key: "districts",
+  get: ({ get }) => fetchDistricts(get(selectedProvinceState).id)
+});
+
+export const selectedDistrictState = atom({
+  key: "selecteDistrict",
+  default: selector({
+    key: "selectedDistrictsDefault",
+    get: ({ get }) => get(districtsState)[0]
+  })
+});
+
+// municipalities
+
+export const municipalitiesState = selector({
+  key: "municipalities",
+  get: ({ get }) => fetchMunicipalities(get(selectedDistrictState).id)
+});
+
+export const selectedMunicipalityState = atom({
+  key: "selectedMunicipality",
+  default: selector({
+    key: "selectedMunicipalityDefault",
+    get: ({ get }) => get(municipalitiesState)[0]
+  })
+});
+
 
 export const wardsState = selector({
   key: "wards",
   get: fetchWards
 });
 
-export const districtsState = selector({
-  key: "districts",
-  get: ({ get }) => {
-    const wards = get(wardsState);
-    return [...new Set(wards.features.map(d => d.properties.district))]
-      .map(titelize).sort();
-  }
-});
-
-export const selectedDistrictState = atom({
-  key: "selecteDistrict",
-  default: DEFAULT_DISTRICT
-});
-
 export const filteredWardsState = selector({
   key: "filteredWards",
   get: ({ get }) => {
     const wards = get(wardsState);
-    const selectedDistrict = get(selectedDistrictState).toLowerCase();
+    const selectedDistrict = get(selectedDistrictState).name.toLowerCase();
 
     return {
       ...wards,
@@ -56,6 +95,8 @@ export const filteredWardsState = selector({
     }
   }
 });
+
+// theme
 
 const themeOverride = {
   palette: {

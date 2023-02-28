@@ -22,6 +22,10 @@ export const fetchWards = () => Promise.resolve(wards);
 
 export const fetchGoodTypes = () => apiFetch("good-type/");
 export const fetchProvinces = () => apiFetch("location/provinces/");
+export const fetchDistricts = (provinceId) =>
+  apiFetch(`location/province/${provinceId}/`);
+export const fetchMunicipalities = (districtId) =>
+  apiFetch(`location/district/${districtId}/`);
 
 const apiFetch = path => fetch(
   `https://${API_HOST_NAME}/api/${path}?ln=${getUserLang()}`,

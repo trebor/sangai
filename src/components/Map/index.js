@@ -1,7 +1,7 @@
 import ControlPanel from './ControlPanel';
+import { geoBounds } from "d3-geo";
 import ReactMapGl, { useMap } from 'react-map-gl';
 import { useEffect, useState } from 'react';
-import { geoBounds, geoCentroid } from "d3-geo";
 
 import './mapbox-gl.css';
 import './map.css';
