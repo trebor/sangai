@@ -1,5 +1,5 @@
 import { createTheme } from '@mui/material/styles';
-import { atom, selector } from "recoil";
+import { atom, selector, selectorFamily } from "recoil";
 import { orange as primary } from '@mui/material/colors';
 
 import {
@@ -28,12 +28,18 @@ export const selectedGoodTypesState = atom({
 
 export const publicGoodsState = selector({
   key: "publicGoods",
-  get: ({ get }) => fetchPublicGoods(
+  get: ({ get }) => get(selectedGoodTypesState)
+    .map(goodType => get(publicGoodState(goodType))).flat()
+});
+
+export const publicGoodState = selectorFamily({
+  key: "publicGoods",
+  get: (goodType) => ({ get }) => fetchPublicGoods(
     get(selectedProvinceState).id,
     get(selectedDistrictState).id,
     get(selectedMunicipalityState).id,
     get(selectedWardState).id,
-    get(selectedGoodTypesState)[0].id,
+    goodType.id
   )
 });
 
