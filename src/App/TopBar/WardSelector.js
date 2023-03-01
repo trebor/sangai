@@ -10,8 +10,6 @@ export default function WardSelector() {
   const [ward, setWard] = useRecoilState(selectedWardState);
   const wards = useRecoilValue(wardsState);
 
-  console.log('wards', wards);
-
   const handleChange = (event) => {
     setWard(event.target.value);
   };
