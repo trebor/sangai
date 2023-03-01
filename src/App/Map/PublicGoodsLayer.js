@@ -22,7 +22,7 @@ const PublicGoodsLayer = () => {
         ...goodTypes.map(({ id, color }) => [id, color]).flat(),
         "black"
       ],
-      'circle-opacity': 0.4
+      'circle-opacity': 0.9,
     }
   };
 
