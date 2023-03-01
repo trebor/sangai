@@ -17,7 +17,8 @@ const WardLayer = () => {
   const wardGeojson = useRecoilValue(wardGeojsonState);
 
   return (
-    <Source type="geojson" data={districtGeojson}>
+    // <Source type="geojson" data={districtGeojson}>
+    <Source type="geojson" data={wardGeojson}>
       <Layer {...configuration} />
     </Source>
   );

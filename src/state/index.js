@@ -150,18 +150,14 @@ export const wardGeojsonState = selector({
   key: "wardGeojson",
   get: ({ get }) => {
     const districtGeojson = get(districtGeojsonState);
-    const selectedMunicipalityId = get(selectedMunicipalityState).id;
-    const selectedWardId = get(selectedWardState).id;
-    console.log('selectedWardId', selectedWardId);
-    console.log('selectedMunicipalityId', selectedMunicipalityId);
-
-    // districtGeojson.features.map(d => d.properties.
+    const municipalityId = get(selectedMunicipalityState).id - 1;
+    const wardId = get(selectedWardState).id;
 
     return {
       ...districtGeojson,
       features: districtGeojson.features.filter(
-        d => d.properties.new_ward_n === selectedWardId
-        && d.properties.sddmm === selectedMunicipalityId
+        d => d.properties.new_ward_n === wardId
+          && d.properties.sddmm === municipalityId
       )
     }
   }
