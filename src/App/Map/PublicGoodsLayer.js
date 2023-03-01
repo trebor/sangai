@@ -1,17 +1,11 @@
 import { Source, Layer } from 'react-map-gl';
 import { useRecoilValue } from 'recoil';
-import { goodTypesState, publicGoodsState } from "state";
+import { goodTypesState, publicGoodsGeojsonState } from "state";
 
 
 const PublicGoodsLayer = () => {
-  const publicGoods = useRecoilValue(publicGoodsState);
+  const publicGoodsGeojson = useRecoilValue(publicGoodsGeojsonState);
   const goodTypes = useRecoilValue(goodTypesState);
-
-  const shape = {
-    type: "FeatureCollection",
-    name: "goods",
-    features: publicGoods.map(d => d.shape)
-  };
 
   const configuration = {
     id: 'goods',
@@ -27,7 +21,7 @@ const PublicGoodsLayer = () => {
   };
 
   return (
-    <Source type="geojson" data={shape}>
+    <Source type="geojson" data={publicGoodsGeojson}>
       <Layer {...configuration} />
     </Source>
   );

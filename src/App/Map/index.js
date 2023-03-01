@@ -8,17 +8,26 @@ import './map.css';
 import WardLayer from "./WardLayer";
 import PublicGoodsLayer from "./PublicGoodsLayer";
 import { useRecoilValue } from 'recoil';
-import { wardGeojsonState } from "state";
+import { publicGoodsGeojsonState, wardGeojsonState } from "state";
 
 const MAPBOX_TOKEN = 'pk.eyJ1IjoidHJlYm9yZXNxdWUiLCJhIjoiY2o1eDNwaXN6MDBjczJ3cW81ODB5MXVhaiJ9.laxgliFuMkrQdZEMiEofaw';
 
 const MapInteraction = () => {
   const { current: map } = useMap();
   const wardGeojson = useRecoilValue(wardGeojsonState);
+  const publicGoodsGeojson = useRecoilValue(publicGoodsGeojsonState);
+
+  const contentGeojson = {
+    type:"FeatureCollection",
+    features: [
+      ...wardGeojson.features,
+      ...publicGoodsGeojson.features,
+    ]
+  };
 
   useEffect(() => {
-    map.fitBounds(geoBounds(wardGeojson), {padding: 40, duration: 1000});
-  }, [wardGeojson, map]);
+    map.fitBounds(geoBounds(contentGeojson), {padding: 40, duration: 1000});
+  }, [contentGeojson, map]);
 
   return null;
 }

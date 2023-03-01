@@ -58,6 +58,15 @@ export const publicGoodState = selectorFamily({
   )
 });
 
+export const publicGoodsGeojsonState = selector({
+  key: "publicGoodsGeojson",
+  get: ({ get }) => ({
+    type: "FeatureCollection",
+    name: "goods",
+    features: get(publicGoodsState).map(d => d.shape)
+  })
+});
+
 // provinces
 
 export const provincesState = selector({
