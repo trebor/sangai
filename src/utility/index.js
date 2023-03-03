@@ -26,5 +26,4 @@ export const titelize = (string, replacementMap = {}) => {
 }
 
 export const getUserLang = () =>
-  (navigator.language || navigator.userLanguage).split("-")[0]
-
+  (navigator.language || navigator.userLanguage)
