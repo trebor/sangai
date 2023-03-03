@@ -2,7 +2,6 @@ import { Source, Layer } from 'react-map-gl';
 import { useRecoilValue } from 'recoil';
 import { goodTypesState, publicGoodsGeojsonState } from "state";
 
-
 const PublicGoodsLayer = () => {
   const publicGoodsGeojson = useRecoilValue(publicGoodsGeojsonState);
   const goodTypes = useRecoilValue(goodTypesState);

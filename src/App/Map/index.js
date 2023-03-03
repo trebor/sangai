@@ -17,17 +17,17 @@ const MapInteraction = () => {
   const wardGeojson = useRecoilValue(wardGeojsonState);
   const publicGoodsGeojson = useRecoilValue(publicGoodsGeojsonState);
 
-  const contentGeojson = {
-    type:"FeatureCollection",
-    features: [
-      ...wardGeojson.features,
-      ...publicGoodsGeojson.features,
-    ]
-  };
-
   useEffect(() => {
+    const contentGeojson = {
+      type:"FeatureCollection",
+      features: [
+        ...wardGeojson.features,
+        ...publicGoodsGeojson.features,
+      ]
+    };
+
     map.fitBounds(geoBounds(contentGeojson), {padding: 40, duration: 1000});
-  }, [contentGeojson, map]);
+  }, [wardGeojson, publicGoodsGeojson, map]);
 
   return null;
 }
