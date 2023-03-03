@@ -2,11 +2,9 @@ import Box from '@mui/material/Box';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
+import AddCommentIcon from '@mui/icons-material/AddComment';
 
-import WardSelector from "./WardSelector";
-import DistrictSelector from "./DistrictSelector";
-import ProvinceSelector from "./ProvinceSelector";
-import MunicipalitySelector from "./MunicipalitySelector";
+import LocationSelect from "./LocationSelect";
 
 export default function TopBar() {
   return (
@@ -17,10 +15,8 @@ export default function TopBar() {
           <Typography variant="h5" component="div" sx={{ flexGrow: 1 }}>
             San̐gai
           </Typography>
-          <ProvinceSelector />
-          <DistrictSelector />
-          <MunicipalitySelector />
-          <WardSelector />
+          <LocationSelect />
+          <AddCommentIcon />
         </Toolbar>
       </AppBar>
     </Box>
