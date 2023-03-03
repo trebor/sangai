@@ -1,5 +1,7 @@
 export const DEFAULT_DISTRICT = "Dhankuta";
 export const API_HOST_NAME = "sangai.sujit.net.np";
+export const FEEDBACK_URL = "https://github.com/trebor/sangai/issues";
+export const ABOUT_URL = "https://github.com/trebor/sangai/#readme";
 
 export const titelize = (string, replacementMap = {}) => {
   if (string === null) return "NULL";

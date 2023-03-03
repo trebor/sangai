@@ -12,7 +12,7 @@ export default function ItemSelector({ item, items, setItem, title }) {
 
   return (
     <div>
-      <FormControl variant="standard" sx={{ mx: 2, _minWidth: 120 }}>
+      <FormControl variant="standard" sx={{ mx: 2 }}>
         {
           onlyOneOption ? (
             <>

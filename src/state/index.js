@@ -2,6 +2,7 @@ import { createTheme } from '@mui/material/styles';
 import { schemeTableau10 } from "d3-scale-chromatic";
 import { scaleOrdinal } from "d3-scale";
 import { orange as primary } from '@mui/material/colors';
+import { blue as secondary } from '@mui/material/colors';
 import { atom, selector, selectorFamily } from "recoil";
 
 import {
@@ -157,6 +158,7 @@ export const wardGeojsonState = selector({
 const themeOverride = {
   palette: {
     primary,
+    secondary
   }
 }
 
