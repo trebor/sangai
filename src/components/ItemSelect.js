@@ -5,18 +5,20 @@ import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
 
 export default function ItemSelector({ item, items, setItem, title }) {
-  const onlyOneOption = items.length < 2;
+  const onlyOneOption = items.length === 1;
   const handleChange = (event) => {
     setItem(event.target.value);
   };
 
   return (
     <div>
-      <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
+      <FormControl variant="standard" sx={{ mx: 2, _minWidth: 120 }}>
         {
           onlyOneOption ? (
             <>
-              <Typography variant="caption" >{title}</Typography>
+              <Typography variant="caption" sx={{fontWeight: "light"}}>
+                {title}
+              </Typography>
               <Typography>{items[0].name}</Typography>
             </>
           ) : (
