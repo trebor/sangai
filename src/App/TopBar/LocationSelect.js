@@ -21,7 +21,7 @@ export default function LocationSelect() {
         items={useRecoilValue(provincesState)}
         item={province}
         setItem={setProvince}
-        title="Provinces"
+        title="Province"
       />
       <ItemSelect
         items={useRecoilValue(districtsState)}
