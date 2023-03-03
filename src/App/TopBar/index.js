@@ -14,7 +14,7 @@ export default function TopBar() {
       <AppBar position="static">
         <Toolbar>
           <Typography variant="h2">🇳🇵</Typography>
-          <Typography variant="h4">San̐gai</Typography>
+          <Typography sx={{pt: 0.5}} variant="h4">San̐gai</Typography>
           <Box sx={{
             pl: 2,
             pt: 2,
