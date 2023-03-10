@@ -8,8 +8,6 @@ import {
   fetchWardsGeojson
 } from "api";
 
-export * from "./goods";
-
 // provinces
 
 export const provincesState = selector({

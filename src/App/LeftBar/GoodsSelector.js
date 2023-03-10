@@ -2,6 +2,7 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRecoilState, useRecoilValue } from "recoil";
 
 import { goodTypesState, selectedGoodTypesState } from "state";
@@ -37,15 +38,11 @@ export default function GoodSelector() {
               alignItems: "center",
               width: "100%"
             }}>
-              <Box style={{
-                minHeight: "2em",
-                minWidth: "2em",
-                maxHeight: "2em",
-                maxWidth: "2em",
-                marginLeft: 8,
-                background: good.color,
-                borderRadius: 4
-              }}/>
+              <FontAwesomeIcon
+                icon={good.icon}
+                size="2x"
+                color={good.color}
+              />
               <span>{good.name}</span>
             </Box>
           </ToggleButton>

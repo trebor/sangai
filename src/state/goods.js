@@ -1,6 +1,15 @@
-import { schemeTableau10 } from "d3-scale-chromatic";
 import { scaleOrdinal } from "d3-scale";
+import { schemeTableau10 } from "d3-scale-chromatic";
 import { atom, selector, selectorFamily } from "recoil";
+import {
+  faSchool,
+  faHouseMedical,
+  faTree,
+  faToilet,
+  faFaucet,
+  faRoad,
+  faTrash,
+}from '@fortawesome/free-solid-svg-icons'
 
 import {
   selectedProvinceState,
@@ -9,13 +18,19 @@ import {
   selectedWardState
 } from "state";
 
-import {
-  fetchGoodTypes,
-  fetchPublicGoods,
-} from "api";
+import { fetchGoodTypes, fetchPublicGoods } from "api";
 
+// fontawesome icons for each good type
 
-// goods
+const goodsIconById = ({
+  schools: faSchool,
+  health_centers: faHouseMedical,
+  public_space: faTree,
+  public_toilets: faToilet,
+  public_water: faFaucet,
+  roads: faRoad,
+  solid_waste: faTrash,
+});
 
 export const goodColorsState = atom({
   key: "goodColors",
@@ -27,7 +42,8 @@ export const goodTypesState = selector({
   get: ({ get }) => fetchGoodTypes().then(goodTypes => goodTypes
       .map(goodType => ({
         ...goodType,
-        color: get(goodColorsState)(goodType.id)
+        color: get(goodColorsState)(goodType.id),
+        icon: goodsIconById[goodType.id]
       }))
       .sort((a, b) => a.name.localeCompare(b.name))
   ),
