@@ -1,11 +1,11 @@
-import { scaleOrdinal } from "d3-scale";
+import { index } from "d3-array";
 import { schemeTableau10 } from "d3-scale-chromatic";
 import { atom, selector, selectorFamily } from "recoil";
 import {
-  faSchool,
+  faGraduationCap,
   faHouseMedical,
   faTree,
-  faToilet,
+  faRestroom,
   faFaucet,
   faRoad,
   faTrash,
@@ -20,21 +20,37 @@ import {
 
 import { fetchGoodTypes, fetchPublicGoods } from "api";
 
-// fontawesome icons for each good type
+// icons and colors for each good type
 
-const goodsIconById = ({
-  schools: faSchool,
-  health_centers: faHouseMedical,
-  public_space: faTree,
-  public_toilets: faToilet,
-  public_water: faFaucet,
-  roads: faRoad,
-  solid_waste: faTrash,
-});
-
-export const goodColorsState = atom({
-  key: "goodColors",
-  default: scaleOrdinal(schemeTableau10),
+const goodsPropertiesById = ({
+  schools: {
+    icon: faGraduationCap,
+    color: schemeTableau10[1]
+  },
+  health_centers: {
+    icon: faHouseMedical,
+    color: schemeTableau10[2]
+  },
+  public_space: {
+    icon: faTree,
+    color: schemeTableau10[4]
+  },
+  public_toilets: {
+    icon: faRestroom,
+    color: schemeTableau10[6]
+  },
+  public_water: {
+    icon: faFaucet,
+    color: schemeTableau10[0]
+  },
+  roads: {
+    icon: faRoad,
+    color: schemeTableau10[9]
+  },
+  solid_waste: {
+    icon: faTrash,
+    color: schemeTableau10[8]
+  },
 });
 
 export const goodTypesState = selector({
@@ -42,11 +58,15 @@ export const goodTypesState = selector({
   get: ({ get }) => fetchGoodTypes().then(goodTypes => goodTypes
       .map(goodType => ({
         ...goodType,
-        color: get(goodColorsState)(goodType.id),
-        icon: goodsIconById[goodType.id]
+        ...goodsPropertiesById[goodType.id],
       }))
       .sort((a, b) => a.name.localeCompare(b.name))
   ),
+});
+
+export const goodTypesMapState = selector({
+  key: "goodTypesMap",
+  get: ({ get }) => index(get(goodTypesState), d => d.id)
 });
 
 export const selectedGoodTypesState = atom({

@@ -1,28 +1,39 @@
-import { Source, Layer } from 'react-map-gl';
+import { Marker } from 'react-map-gl';
 import { useRecoilValue } from 'recoil';
-import { goodTypesState, publicGoodsGeojsonState } from "state";
+import { goodTypesMapState, publicGoodsGeojsonState } from "state";
+
+const PublicGoodsMarker = ({ feature, scale = 0.04 }) => {
+  const goodTypesMap = useRecoilValue(goodTypesMapState);
+
+  const {
+    geometry: { coordinates : [longitude, latitude] },
+    properties: { type }
+  } = feature;
+
+  const {
+    color,
+    icon: { icon : [ width, height,,, path ] }
+  } = goodTypesMap.get(type);
+
+  return (
+    <Marker {...{ longitude, latitude }} _anchor="center" >
+      <svg width={width} height={height} transform={`scale(${scale})`}>
+        <path d={path} fill={color} opacity="1"/>
+      </svg>
+    </Marker>
+  );
+}
+
 
 const PublicGoodsLayer = () => {
   const publicGoodsGeojson = useRecoilValue(publicGoodsGeojsonState);
-  const goodTypes = useRecoilValue(goodTypesState);
-
-  const configuration = {
-    id: 'goods',
-    type: 'circle',
-    paint: {
-      'circle-color': [
-        'match', ['get','type'],
-        ...goodTypes.map(({ id, color }) => [id, color]).flat(),
-        "black"
-      ],
-      'circle-opacity': 0.9,
-    }
-  };
 
   return (
-    <Source type="geojson" data={publicGoodsGeojson}>
-      <Layer {...configuration} />
-    </Source>
+    <>
+      { publicGoodsGeojson.features.map((feature, i) =>
+        <PublicGoodsMarker key={i} {...{feature}} />
+      )}
+    </>
   );
 }
 
