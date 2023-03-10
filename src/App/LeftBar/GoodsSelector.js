@@ -37,7 +37,6 @@ export default function GoodSelector() {
               alignItems: "center",
               width: "100%"
             }}>
-              <span>{good.name}</span>
               <Box style={{
                 minHeight: "2em",
                 minWidth: "2em",
@@ -47,6 +46,7 @@ export default function GoodSelector() {
                 background: good.color,
                 borderRadius: 4
               }}/>
+              <span>{good.name}</span>
             </Box>
           </ToggleButton>
         ))}
