@@ -1,5 +1,5 @@
 import { index } from "d3-array";
-import { schemeTableau10 } from "d3-scale-chromatic";
+import { schemeSet1 } from "d3-scale-chromatic";
 import { atom, selector, selectorFamily } from "recoil";
 import {
   faGraduationCap,
@@ -25,31 +25,31 @@ import { fetchGoodTypes, fetchPublicGoods } from "api";
 const goodsPropertiesById = ({
   schools: {
     icon: faGraduationCap,
-    color: schemeTableau10[1]
+    color: schemeSet1[3],
   },
   health_centers: {
     icon: faHouseMedical,
-    color: schemeTableau10[2]
+    color: schemeSet1[0],
   },
   public_space: {
     icon: faTree,
-    color: schemeTableau10[4]
+    color: schemeSet1[2]
   },
   public_toilets: {
     icon: faRestroom,
-    color: schemeTableau10[6]
+    color: schemeSet1[4]
   },
   public_water: {
     icon: faFaucet,
-    color: schemeTableau10[0]
+    color: schemeSet1[1]
   },
   roads: {
     icon: faRoad,
-    color: schemeTableau10[9]
+    color: schemeSet1[8]
   },
   solid_waste: {
     icon: faTrash,
-    color: schemeTableau10[8]
+    color: schemeSet1[6]
   },
 });
 

@@ -2,7 +2,7 @@ import { Marker } from 'react-map-gl';
 import { useRecoilValue } from 'recoil';
 import { goodTypesMapState, publicGoodsGeojsonState } from "state";
 
-const PublicGoodsMarker = ({ feature, scale = 0.04 }) => {
+const PublicGoodsMarker = ({ feature, scale = 0.03, opacity = 0.9 }) => {
   const goodTypesMap = useRecoilValue(goodTypesMapState);
 
   const {
@@ -18,7 +18,7 @@ const PublicGoodsMarker = ({ feature, scale = 0.04 }) => {
   return (
     <Marker {...{ longitude, latitude }} _anchor="center" >
       <svg width={width} height={height} transform={`scale(${scale})`}>
-        <path d={path} fill={color} opacity="1"/>
+        <path d={path} fill={color} opacity={opacity}/>
       </svg>
     </Marker>
   );
