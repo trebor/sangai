@@ -32,8 +32,12 @@ apiFetch(`location/municipality/${municipalityId}/`).then(
     ({ name: `Ward ${name}`, id: name, mapId: parseInt(id) })
   ));
 
+const apiHost = window.location.host.startsWith("localhost")
+  ? `https://${API_HOST_NAME}`
+  : "";
+
 const apiFetch = path => fetch(
-  `https://${API_HOST_NAME}/api/${path}?ln=${getUserLang()}`,
+  `${apiHost}/api/${path}?ln=${getUserLang()}`,
   { mode: 'cors' }
 )
   .then((response) => response.json());
