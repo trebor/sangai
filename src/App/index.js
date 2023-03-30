@@ -18,13 +18,15 @@ export default function App() {
         display: "flex",
         flexDirection: "column",
       }}>
-        <TopBar />
-        <Box sx={{ display: "flex", flex: "1 1 0" }}>
-          <LeftBar />
-          <Suspense fallback={<Spinner />}>
-            <Map />
-          </Suspense>
-        </Box>
+        <Suspense fallback={<Spinner />}>
+          <TopBar />
+          <Box sx={{ display: "flex", flex: "1 1 0" }}>
+            <LeftBar />
+            <Suspense fallback={<Spinner />}>
+              <Map />
+            </Suspense>
+          </Box>
+        </Suspense>
       </Box>
     </ThemeProvider>
   );
