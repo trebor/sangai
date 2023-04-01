@@ -1,3 +1,4 @@
+import mapboxgl from "mapbox-gl";
 import ControlPanel from './ControlPanel';
 import { geoBounds } from "d3-geo";
 import ReactMapGl, { useMap } from 'react-map-gl';
@@ -9,6 +10,10 @@ import WardLayer from "./WardLayer";
 import PublicGoodsLayer from "./PublicGoodsLayer";
 import { useRecoilValue } from 'recoil';
 import { publicGoodsGeojsonState, wardGeojsonState } from "state";
+
+// this fixes an error in production
+// eslint-disable-next-line import/no-webpack-loader-syntax
+mapboxgl.workerClass = require("worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker").default;
 
 const MAPBOX_TOKEN = 'pk.eyJ1IjoidHJlYm9yZXNxdWUiLCJhIjoiY2o1eDNwaXN6MDBjczJ3cW81ODB5MXVhaiJ9.laxgliFuMkrQdZEMiEofaw';
 
