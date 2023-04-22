@@ -1,7 +1,48 @@
+import { schemeSet1 } from "d3-scale-chromatic";
+import {
+  faGraduationCap,
+  faHouseMedical,
+  faTree,
+  faRestroom,
+  faFaucet,
+  faRoad,
+  faTrash,
+} from '@fortawesome/free-solid-svg-icons'
+
 export const DEFAULT_DISTRICT = "Dhankuta";
 export const API_HOST_NAME = "sangai.sujit.net.np";
 export const FEEDBACK_URL = "https://github.com/trebor/sangai/issues";
 export const ABOUT_URL = "https://github.com/trebor/sangai/#readme";
+export const GOODS_PROPERTIES_BY_ID = ({
+  schools: {
+    icon: faGraduationCap,
+    color: schemeSet1[3],
+  },
+  health_centers: {
+    icon: faHouseMedical,
+    color: schemeSet1[0],
+  },
+  public_space: {
+    icon: faTree,
+    color: schemeSet1[2]
+  },
+  public_toilets: {
+    icon: faRestroom,
+    color: schemeSet1[4]
+  },
+  public_water: {
+    icon: faFaucet,
+    color: schemeSet1[1]
+  },
+  roads: {
+    icon: faRoad,
+    color: schemeSet1[8]
+  },
+  solid_waste: {
+    icon: faTrash,
+    color: schemeSet1[6]
+  },
+});
 
 export const titelize = (string, replacementMap = {}) => {
   if (string === null) return "NULL";
