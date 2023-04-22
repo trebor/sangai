@@ -1,7 +1,7 @@
 import { Layer, Source } from 'react-map-gl';
 import { useRecoilValue } from "recoil";
 
-import { publicGoodsGeojsonState } from "state";
+import { publicGoodsGeojsonState, showClustersState } from "state";
 
 const CLUSTER_COLOR = "#ddd";
 
@@ -62,7 +62,7 @@ const clusterCountLayer = {
   layout: {
     'text-field': '{point_count_abbreviated}',
     'text-font': ['DIN Offc Pro Medium', 'Arial Unicode MS Bold'],
-    'text-size': 36
+    'text-size': 36,
   },
   paint: {
     'text-color': "#444",
@@ -94,23 +94,51 @@ const unclusteredSymboleLayer = {
   },
 };
 
-const ClusterLayer = () => {
+const layers = [
+  clusterLayer,
+  clusterCountLayer,
+  unclusteredSymboleLayer
+]
+
+const ClusteredLayers = ({ id, cluster }) => {
   const publicGoodsGeojson = useRecoilValue(publicGoodsGeojsonState);
+  const showClusters = useRecoilValue(showClustersState);
+  const visible = cluster ? showClusters : !showClusters;
+  const sourceId = `goods-${id}`;
 
   return (
     <Source
-      id="publicGoodsClusters"
+      id={sourceId}
       type="geojson"
       data={publicGoodsGeojson}
-      cluster={true}
+      cluster={cluster}
       clusterRadius={100}
     >
-      <Layer {...clusterLayer} />
-      <Layer {...clusterCountLayer} />
-      {/* <Layer {...unclusteredPointLayer} /> */}
-      <Layer {...unclusteredSymboleLayer} />
+      {
+        layers.map(layer => (
+          <Layer
+            key={layer.id }
+            {...{
+              ...layer,
+              source: sourceId,
+              id: `${sourceId}-${layer.id}`,
+              layout: {
+                ...(layer.layout || {}),
+                visibility: visible ? "visible" : "none"
+              }
+            }}
+          />
+        ))
+      }
     </Source>
   );
 }
+
+const ClusterLayer = () => (
+  <>
+    <ClusteredLayers id="clustered" cluster={true} />
+    <ClusteredLayers id="separate" cluster={false} />
+  </>
+);
 
 export default ClusterLayer;

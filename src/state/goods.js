@@ -10,6 +10,16 @@ import {
 
 import { fetchGoodTypes, fetchPublicGoods } from "api";
 
+export const showClustersState = atom({
+  key: "showClusters",
+  default: true
+});
+
+export const imagesLoadedState = atom({
+  key: "imagesLoaded",
+  default: false
+});
+
 export const goodTypesState = selector({
   key: "goodTypes",
   get: ({ get }) => fetchGoodTypes()
