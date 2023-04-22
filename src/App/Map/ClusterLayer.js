@@ -3,7 +3,7 @@ import { useRecoilValue } from "recoil";
 
 import { publicGoodsGeojsonState, showClustersState } from "state";
 
-const CLUSTER_COLOR = "#ddd";
+const CLUSTER_COLOR = "#fff";
 
 const CLUSTERS = [
   {
