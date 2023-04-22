@@ -29,3 +29,52 @@ export const titelize = (string, replacementMap = {}) => {
 
 export const getUserLang = () =>
   (navigator.language || navigator.userLanguage)
+
+export const goodTypeToImage = (
+  type,
+  {
+    outset = 200,
+    opacity = 1,
+    cornerFactor = 0.25
+  } = {}
+) => new Promise(resolve => {
+  const {
+    color,
+    icon: { icon : [ width, height,,, path ] }
+  } = type;
+  const size = Math.max(width, height) + outset;
+  const radius = size / 2;
+  const corner = size * cornerFactor;
+  const translate = [width, height].map(dim => (size - dim) / 2);
+
+  const svgXml = `
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      xmlns:xlink="http://www.w3.org/1999/xlink"
+      viewBox="0 0 ${size} ${size}"
+      width="${size}"
+      height="${size}"
+    >
+      <g opacity="${opacity}">
+        <rect
+          rx="${corner}"
+          ry="${corner}"
+          width="${size}"
+          height="${size}"
+          fill="white"
+         />
+        <_circle r="${radius}" cx="${radius}" cy="${radius}" fill="white" />
+        <g transform="translate(${translate})">
+         <path d="${path}" fill="${color}" />
+        </g>
+      </g>
+    </svg>`;
+
+  const svgBlob = new Blob([svgXml], {
+    type: 'image/svg+xml;charset=utf-8'
+  });
+
+  const image = new Image(size, size);
+  image.src = URL.createObjectURL(svgBlob)
+  image.addEventListener("load", () => resolve(image));
+});

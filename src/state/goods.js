@@ -11,6 +11,7 @@ import {
   faTrash,
 }from '@fortawesome/free-solid-svg-icons'
 
+import { goodTypeToImage } from "utility";
 import {
   selectedProvinceState,
   selectedDistrictState,
@@ -55,13 +56,22 @@ const goodsPropertiesById = ({
 
 export const goodTypesState = selector({
   key: "goodTypes",
-  get: ({ get }) => fetchGoodTypes().then(goodTypes => goodTypes
-      .map(goodType => ({
-        ...goodType,
-        ...goodsPropertiesById[goodType.id],
-      }))
-      .sort((a, b) => a.name.localeCompare(b.name))
-  ),
+  get: ({ get }) => fetchGoodTypes()
+    .then(goodTypes => {
+      const typePromises = goodTypes
+        .map(goodType => ({
+          ...goodType,
+          ...goodsPropertiesById[goodType.id],
+        }))
+        .map(type => goodTypeToImage(type)
+            .then(image => ({
+              ...type,
+              image,
+            }))
+        );
+      return Promise.all(typePromises);
+    })
+    .then(types => types.sort((a, b) => a.name.localeCompare(b.name)))
 });
 
 export const goodTypesMapState = selector({
