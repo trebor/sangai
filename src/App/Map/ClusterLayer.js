@@ -39,6 +39,10 @@ const clusterLayer = {
   source: 'publicGoodsClusters',
   filter: ['has', 'point_count'],
   paint: {
+    'circle-opacity': 0.7,
+    'circle-stroke-opacity': 0.1,
+    'circle-stroke-color': 'black',
+    'circle-stroke-width': 1,
     'circle-color': ['step', ['get', 'point_count'],
       ...CLUSTERS.map(({ upto, color }) => [ color, upto ]).flat(),
       CLUSTER_COLOR
@@ -58,8 +62,11 @@ const clusterCountLayer = {
   layout: {
     'text-field': '{point_count_abbreviated}',
     'text-font': ['DIN Offc Pro Medium', 'Arial Unicode MS Bold'],
-    'text-size': 12
+    'text-size': 36
   },
+  paint: {
+    'text-color': "#444",
+  }
 };
 
 export const unclusteredPointLayer = {
