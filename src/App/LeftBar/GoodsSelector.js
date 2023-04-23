@@ -75,7 +75,7 @@ export default function GoodSelector() {
               /* checkedIcon={<CheckIcon icon={<BubbleChart />}/>} */
               /* icon={<CheckIcon icon={<ScatterPlot />}/>} */
             />}
-          label="Clusters Goods"
+          label="Cluster Goods"
         />
       </Box>
     </Box>

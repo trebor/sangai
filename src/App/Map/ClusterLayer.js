@@ -1,13 +1,19 @@
-import { useCallback, useEffect, useState } from 'react';
-import { useMap } from 'react-map-gl';
-import { useRecoilValue } from "recoil";
-import { Layer, Source, Popup } from 'react-map-gl';
 import Box from '@mui/material/Box';
+import { group } from "d3-array";
+import { useMap } from 'react-map-gl';
+import Typography from '@mui/material/Typography';
+import { useRecoilValue } from "recoil";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Layer, Source, Popup } from 'react-map-gl';
+import { useCallback, useEffect, useState } from 'react';
 
-import { publicGoodsGeojsonState, showClustersState } from "state";
+import {
+  goodTypesState,
+  publicGoodsGeojsonState,
+  showClustersState
+} from "state";
 
 const CLUSTER_COLOR = "#fff";
-
 const CLUSTERS = [
   {
     upto: 10,
@@ -34,7 +40,7 @@ const CLUSTERS = [
     radius: 100,
     color: CLUSTER_COLOR
   },
-]
+];
 
 const clusterLayer = {
   id: 'clusters',
@@ -175,20 +181,52 @@ const ClusteredLayers = ({ id, cluster, onItemEnter, onItemExit }) => {
 }
 
 const FeaturesPopup = ({ handleClose, popupProperties }) => {
+  const goods = useRecoilValue(goodTypesState);
+
   if (!popupProperties) {
     return null;
   }
 
   const { features, point: { lng, lat }} = popupProperties;
+  const groups = group(features, d => d.properties.type);
+  const goodsWithGroups = goods
+    .map(good => ({ good, group: groups.get(good.id)}))
+    .filter(d => !!d.group);
 
   return (
     <Popup
-      longitude={lng} latitude={lat}
-      anchor="bottom"
+      longitude={lng}
+      latitude={lat}
       onClose={handleClose}
+      closeButton={false}
     >
-      <Box sx={{ pt: 1 }}>
-        {features.length}
+      <Box sx={{ typography: "h5", pt: 1 }}>Public Goods</Box>
+      <Box sx={{ display: "flex", flexDirection: "column" }}>
+        {goodsWithGroups.map(({ good, group }) => (
+          <Box sx={{ display: "flex", alignItems: "baseline", p: 1 }}>
+            <FontAwesomeIcon
+              icon={good.icon}
+              size="xl"
+              color={good.color}
+              fixedWidth
+            />
+            <Box sx={{
+              width: "2em",
+              textAlign:"right",
+              typography: "h6",
+              fontWeight: 'bold',
+              px: 1
+            }}>
+              {group.length}
+            </Box>
+            <Typography noWrap sx={{
+              typography: "body2",
+              textTransform: 'uppercase'
+            }}>
+              {good.name}
+            </Typography>
+          </Box>
+        ))}
       </Box>
     </Popup>
   );
