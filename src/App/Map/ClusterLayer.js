@@ -1,5 +1,8 @@
-import { Layer, Source } from 'react-map-gl';
+import { useCallback, useEffect, useState } from 'react';
+import { useMap } from 'react-map-gl';
 import { useRecoilValue } from "recoil";
+import { Layer, Source, Popup } from 'react-map-gl';
+import Box from '@mui/material/Box';
 
 import { publicGoodsGeojsonState, showClustersState } from "state";
 
@@ -100,11 +103,48 @@ const layers = [
   unclusteredSymboleLayer
 ]
 
-const ClusteredLayers = ({ id, cluster }) => {
+const ClusteredLayers = ({ id, cluster, onItemEnter, onItemExit }) => {
+  const { current: map } = useMap();
   const publicGoodsGeojson = useRecoilValue(publicGoodsGeojsonState);
   const showClusters = useRecoilValue(showClustersState);
   const visible = cluster ? showClusters : !showClusters;
   const sourceId = `goods-${id}`;
+  const clusterLayerId = `${sourceId}-clusters`;
+  const unclusteredLayerId = `${sourceId}-unclustered-symbol`;
+
+  const handleMove = useCallback(({ point, lngLat, features }) => {
+    const [{ layer: { id } }] = features;
+    if (id === unclusteredLayerId) {
+      onItemEnter({ point: lngLat, features });
+      return;
+    }
+
+    const [{ properties: { cluster_id, point_count }}] = map
+          .queryRenderedFeatures(point, { layers: [id] });
+
+    map.getSource(sourceId).getClusterLeaves(
+      cluster_id,
+      point_count,
+      0,
+      (err, features) => {
+        if (err) throw new Error(err);
+        onItemEnter({ point: lngLat, features });
+      }
+    );
+  }, [map, onItemEnter, sourceId, unclusteredLayerId]);
+
+  const handleLeave = useCallback(() => {
+    onItemExit()
+  }, [onItemExit]);
+
+
+  useEffect(() => {
+    map.on("mousemove", clusterLayerId, handleMove);
+    map.on("mousemove", unclusteredLayerId, handleMove);
+    map.on("mouseleave", clusterLayerId, handleLeave);
+    map.on("mouseleave", unclusteredLayerId, handleLeave);
+  // eslint-disable-next-line
+  }, []);
 
   return (
     <Source
@@ -134,11 +174,49 @@ const ClusteredLayers = ({ id, cluster }) => {
   );
 }
 
-const ClusterLayer = () => (
-  <>
-    <ClusteredLayers id="clustered" cluster={true} />
-    <ClusteredLayers id="separate" cluster={false} />
-  </>
-);
+const FeaturesPopup = ({ handleClose, popupProperties }) => {
+  if (!popupProperties) {
+    return null;
+  }
+
+  const { features, point: { lng, lat }} = popupProperties;
+
+  return (
+    <Popup
+      longitude={lng} latitude={lat}
+      anchor="bottom"
+      onClose={handleClose}
+    >
+      <Box sx={{ pt: 1 }}>
+        {features.length}
+      </Box>
+    </Popup>
+  );
+}
+
+const ClusterLayer = () => {
+  const [ popupProperties, setPopupProperties ] = useState(null);
+
+  return (
+    <>
+      <ClusteredLayers
+        id="clustered"
+        cluster={true}
+        onItemEnter={setPopupProperties}
+        onItemExit={() => setPopupProperties(null)}
+      />
+      <ClusteredLayers
+        id="separate"
+        cluster={false}
+        onItemEnter={setPopupProperties}
+        onItemExit={() => setPopupProperties(null)}
+      />
+      <FeaturesPopup
+        popupProperties={popupProperties}
+        handleClose={() => setPopupProperties({})}
+      />
+    </>
+  );
+};
 
 export default ClusterLayer;

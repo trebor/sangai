@@ -64,12 +64,6 @@ const Map = () => {
         mapStyle={mapStyle && mapStyle.toJS()}
         styleDiffing
         mapboxAccessToken={MAPBOX_TOKEN}
-        interactiveLayerIds={[
-          "clusters",
-          "cluster-count",
-          "unclustered-point",
-          "unclustered-symbol",
-        ]}
       >
         <MapInteraction/>
         <WardLayer />

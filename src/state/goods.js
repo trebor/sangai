@@ -76,6 +76,13 @@ export const publicGoodsGeojsonState = selector({
   get: ({ get }) => ({
     type: "FeatureCollection",
     name: "goods",
-    features: get(publicGoodsState).map(d => d.shape)
+    features: get(publicGoodsState)
+      .map(({ shape: { properties, ...restShape }, ...rest}) => ({
+        ...restShape,
+        properties: {
+          ...properties,
+          ...rest
+        }
+      }))
   })
 });
