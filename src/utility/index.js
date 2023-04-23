@@ -17,30 +17,37 @@ export const GOODS_PROPERTIES_BY_ID = ({
   schools: {
     icon: faGraduationCap,
     color: schemeSet1[3],
+    nameField: 'Name of the educational institute',
   },
   health_centers: {
     icon: faHouseMedical,
     color: schemeSet1[0],
+    nameField: 'Name of the health institute',
   },
   public_space: {
     icon: faTree,
-    color: schemeSet1[2]
+    color: schemeSet1[2],
+    nameField: 'Name of the public space',
   },
   public_toilets: {
     icon: faRestroom,
-    color: schemeSet1[4]
+    color: schemeSet1[4],
+    nameField: 'Name of the public toilet',
   },
   public_water: {
     icon: faFaucet,
-    color: schemeSet1[1]
+    color: schemeSet1[1],
+    nameField: 'Name of the public water point',
   },
   roads: {
     icon: faRoad,
-    color: schemeSet1[8]
+    color: schemeSet1[8],
+    nameField: 'Name of the road',
   },
   solid_waste: {
     icon: faTrash,
-    color: schemeSet1[6]
+    color: schemeSet1[6],
+    nameField: 'Name of the road solid waste management',
   },
 });
 

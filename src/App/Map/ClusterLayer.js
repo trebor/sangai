@@ -149,7 +149,7 @@ const ClusteredLayers = ({ id, cluster, onItemEnter, onItemExit }) => {
     map.on("mousemove", unclusteredLayerId, handleMove);
     map.on("mouseleave", clusterLayerId, handleLeave);
     map.on("mouseleave", unclusteredLayerId, handleLeave);
-  // eslint-disable-next-line
+    // eslint-disable-next-line
   }, []);
 
   return (
@@ -180,18 +180,79 @@ const ClusteredLayers = ({ id, cluster, onItemEnter, onItemExit }) => {
   );
 }
 
-const FeaturesPopup = ({ handleClose, popupProperties }) => {
+const ClusterPopupContent = ({ features }) => {
   const goods = useRecoilValue(goodTypesState);
-
-  if (!popupProperties) {
-    return null;
-  }
-
-  const { features, point: { lng, lat }} = popupProperties;
   const groups = group(features, d => d.properties.type);
   const goodsWithGroups = goods
     .map(good => ({ good, group: groups.get(good.id)}))
     .filter(d => !!d.group);
+
+  return (
+    <Box sx={{ display: "flex", flexDirection: "column", px: 1 }}>
+      <Box sx={{ typography: "h6", py: 1 }}>
+        Public Goods
+      </Box>
+      {goodsWithGroups.map(({ good, group }) => (
+        <Box sx={{ display: "flex", alignItems: "baseline", px: 1 }}>
+          <FontAwesomeIcon
+            icon={good.icon}
+            size="xl"
+            color={good.color}
+            fixedWidth
+          />
+          <Box sx={{
+            width: "2em",
+            textAlign:"right",
+            typography: "h6",
+            fontWeight: 'bold',
+            px: 1
+          }}>
+            {group.length}
+          </Box>
+          <Typography noWrap sx={{
+            typography: "body2",
+            textTransform: 'uppercase'
+          }}>
+            {good.name}
+          </Typography>
+        </Box>
+      ))}
+    </Box>
+  );
+}
+
+const FeaturePopupContent = ({ feature: { properties } }) => {
+  const { color, icon, name, nameField } = useRecoilValue(goodTypesState)
+        .find(d => d.id === properties.type);
+  const { tole } = JSON.parse(properties.address);
+  const details = JSON.parse(properties.properties);
+
+  return (
+    <Box sx={{ display: "flex", flexDirection: "column", px: 1 }}>
+      <Box sx={{ display: "flex", alignItems: "center" }}>
+        <FontAwesomeIcon
+          icon={icon}
+          size="3x"
+          color={color}
+          fixedWidth
+        />
+        <Box sx={{ typography: "h6", pl: 1, _alignSelf: "center" }}>
+          {details[nameField]}
+        </Box>
+      </Box>
+      <Box typography="body1">{tole}</Box>
+    </Box>
+  );
+}
+
+const FeaturesPopup = ({ handleClose, popupProperties }) => {
+  if (!popupProperties
+      || !popupProperties.features
+      || !popupProperties.point) {
+    return null;
+  }
+
+  const { features, point: { lng, lat }} = popupProperties;
 
   return (
     <Popup
@@ -199,38 +260,13 @@ const FeaturesPopup = ({ handleClose, popupProperties }) => {
       latitude={lat}
       onClose={handleClose}
       closeButton={false}
-      maxWidth="300px"
+      maxWidth="350px"
+      offset={20}
     >
-      <Box sx={{ display: "flex", flexDirection: "column" }}>
-        <Box sx={{ typography: "h4", py: 1, alignSelf: "center" }}>
-          Public Goods
-        </Box>
-        {goodsWithGroups.map(({ good, group }) => (
-          <Box sx={{ display: "flex", alignItems: "baseline", p: 1 }}>
-            <FontAwesomeIcon
-              icon={good.icon}
-              size="xl"
-              color={good.color}
-              fixedWidth
-            />
-            <Box sx={{
-              width: "2em",
-              textAlign:"right",
-              typography: "h6",
-              fontWeight: 'bold',
-              px: 1
-            }}>
-              {group.length}
-            </Box>
-            <Typography noWrap sx={{
-              typography: "body2",
-              textTransform: 'uppercase'
-            }}>
-              {good.name}
-            </Typography>
-          </Box>
-        ))}
-      </Box>
+      { features.length > 1
+        ? <ClusterPopupContent {...{ features }} />
+        : <FeaturePopupContent feature={features[0]} />
+      }
     </Popup>
   );
 }
