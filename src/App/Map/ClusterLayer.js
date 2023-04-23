@@ -199,9 +199,12 @@ const FeaturesPopup = ({ handleClose, popupProperties }) => {
       latitude={lat}
       onClose={handleClose}
       closeButton={false}
+      maxWidth="300px"
     >
-      <Box sx={{ typography: "h5", pt: 1 }}>Public Goods</Box>
       <Box sx={{ display: "flex", flexDirection: "column" }}>
+        <Box sx={{ typography: "h4", py: 1, alignSelf: "center" }}>
+          Public Goods
+        </Box>
         {goodsWithGroups.map(({ good, group }) => (
           <Box sx={{ display: "flex", alignItems: "baseline", p: 1 }}>
             <FontAwesomeIcon
