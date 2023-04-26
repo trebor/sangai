@@ -194,24 +194,25 @@ const ClusterPopupContent = ({ features }) => {
       </Box>
       {goodsWithGroups.map(({ good, group }) => (
         <Box sx={{ display: "flex", alignItems: "baseline", px: 1 }}>
+          <Box sx={{
+            width: "1.5em",
+            textAlign:"right",
+            typography: "h6",
+            fontWeight: 'bold',
+            pr: 1
+          }}>
+            {group.length}
+          </Box>
           <FontAwesomeIcon
             icon={good.icon}
             size="xl"
             color={good.color}
             fixedWidth
           />
-          <Box sx={{
-            width: "2em",
-            textAlign:"right",
-            typography: "h6",
-            fontWeight: 'bold',
-            px: 1
-          }}>
-            {group.length}
-          </Box>
           <Typography noWrap sx={{
             typography: "body2",
-            textTransform: 'uppercase'
+            textTransform: 'uppercase',
+            pl: 1
           }}>
             {good.name}
           </Typography>
@@ -260,6 +261,7 @@ const FeaturesPopup = ({ handleClose, popupProperties }) => {
       latitude={lat}
       onClose={handleClose}
       closeButton={false}
+      closeOnMove={true}
       maxWidth="350px"
       offset={20}
     >
