@@ -1,9 +1,8 @@
 import mapboxgl from "mapbox-gl";
-import ControlPanel from './ControlPanel';
 import { geoBounds } from "d3-geo";
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
-import ReactMapGl, { NavigationControl, Source, useMap } from 'react-map-gl';
+import ReactMapGl, { NavigationControl, useMap } from 'react-map-gl';
 
 import './mapbox-gl.css';
 import './map.css';
@@ -61,14 +60,7 @@ const Map = () => {
         mapStyle={CUSTOM_MAP_STYLE}
         mapboxAccessToken={MAPBOX_TOKEN}
       >
-        {/* <Source */}
-        {/*   id="mapbox-dem" */}
-        {/*   type="raster-dem" */}
-        {/*   url="mapbox://mapbox.mapbox-terrain-dem-v1" */}
-        {/*   tileSize={512} */}
-        {/*   maxzoom={14} */}
-        {/* /> */}
-        {/* <NavigationControl visualizePitch /> */}
+        <NavigationControl visualizePitch />
         <MapInteraction/>
         <WardLayer />
         <ClusterLayer />

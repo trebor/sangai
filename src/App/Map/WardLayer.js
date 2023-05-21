@@ -6,8 +6,7 @@ const configuration = {
   id: 'wards',
   type: 'fill',
   paint: {
-    'fill-outline-color': '#000000',
-    'fill-color':'#0088ff',
+    'fill-color':'#000000',
     'fill-opacity': 0.1
   }
 };
@@ -16,9 +15,9 @@ const WardLayer = () => {
   const wardGeojson = useRecoilValue(wardGeojsonState);
 
   return (
-    <Source type="geojson" data={wardGeojson}>
-      <Layer {...configuration} />
-    </Source>
+      <Source type="geojson" data={wardGeojson}>
+        <Layer {...configuration} />
+      </Source>
   );
 }
 

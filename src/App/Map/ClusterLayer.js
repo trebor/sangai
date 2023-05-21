@@ -193,7 +193,10 @@ const ClusterPopupContent = ({ features }) => {
         Public Goods
       </Box>
       {goodsWithGroups.map(({ good, group }) => (
-        <Box sx={{ display: "flex", alignItems: "baseline", px: 1 }}>
+        <Box
+          key={good.id}
+          sx={{ display: "flex", alignItems: "baseline", px: 1 }}
+        >
           <Box sx={{
             width: "1.5em",
             textAlign:"right",
@@ -223,7 +226,7 @@ const ClusterPopupContent = ({ features }) => {
 }
 
 const FeaturePopupContent = ({ feature: { properties } }) => {
-  const { color, icon, name, nameField } = useRecoilValue(goodTypesState)
+  const { color, icon, nameField } = useRecoilValue(goodTypesState)
         .find(d => d.id === properties.type);
   const { tole } = JSON.parse(properties.address);
   const details = JSON.parse(properties.properties);
