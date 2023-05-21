@@ -1,14 +1,15 @@
 import mapboxgl from "mapbox-gl";
 import ControlPanel from './ControlPanel';
 import { geoBounds } from "d3-geo";
-import ReactMapGl, { useMap } from 'react-map-gl';
 import { useEffect, useState } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
+import ReactMapGl, { NavigationControl, Source, useMap } from 'react-map-gl';
 
 import './mapbox-gl.css';
 import './map.css';
 import WardLayer from "./WardLayer";
 import ClusterLayer from "./ClusterLayer";
+import { CUSTOM_MAP_STYLE, MAPBOX_TOKEN } from "utility";
 import {
   goodTypesState,
   imagesLoadedState,
@@ -19,8 +20,6 @@ import {
 // this fixes an error in production
 // eslint-disable-next-line import/no-webpack-loader-syntax
 mapboxgl.workerClass = require("worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker").default;
-
-const MAPBOX_TOKEN = 'pk.eyJ1IjoidHJlYm9yZXNxdWUiLCJhIjoiY2o1eDNwaXN6MDBjczJ3cW81ODB5MXVhaiJ9.laxgliFuMkrQdZEMiEofaw';
 
 const MapInteraction = () => {
   const { current: map } = useMap();
@@ -56,22 +55,24 @@ const MapInteraction = () => {
 }
 
 const Map = () => {
-  const [mapStyle, setMapStyle] = useState(null);
-
   return (
     <>
       <ReactMapGl
-        mapStyle={mapStyle && mapStyle.toJS()}
-        styleDiffing
+        mapStyle={CUSTOM_MAP_STYLE}
         mapboxAccessToken={MAPBOX_TOKEN}
       >
+        {/* <Source */}
+        {/*   id="mapbox-dem" */}
+        {/*   type="raster-dem" */}
+        {/*   url="mapbox://mapbox.mapbox-terrain-dem-v1" */}
+        {/*   tileSize={512} */}
+        {/*   maxzoom={14} */}
+        {/* /> */}
+        {/* <NavigationControl visualizePitch /> */}
         <MapInteraction/>
         <WardLayer />
         <ClusterLayer />
       </ReactMapGl>
-      <div style={{visibility: "hidden"}}>
-        <ControlPanel onChange={setMapStyle} />
-      </div>
     </>
   );
 }

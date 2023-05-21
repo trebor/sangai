@@ -9,6 +9,9 @@ import {
   faTrash,
 } from '@fortawesome/free-solid-svg-icons'
 
+
+export const MAPBOX_TOKEN = 'pk.eyJ1IjoidHJlYm9yZXNxdWUiLCJhIjoiY2o1eDNwaXN6MDBjczJ3cW81ODB5MXVhaiJ9.laxgliFuMkrQdZEMiEofaw';
+export const CUSTOM_MAP_STYLE = "mapbox://styles/treboresque/cj7zarlnb6swc2sus3pqal9zf";
 export const DEFAULT_DISTRICT = "Dhankuta";
 export const API_HOST_NAME = "sangai.sujit.net.np";
 export const FEEDBACK_URL = "https://github.com/trebor/sangai/issues";
