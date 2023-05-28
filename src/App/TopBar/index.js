@@ -1,48 +1,85 @@
 import Box from '@mui/material/Box';
 import Link from '@mui/material/Link';
 import Button from '@mui/material/Button';
-import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
+import MenuIcon from '@mui/icons-material/Menu';
+import MuiAppBar from '@mui/material/AppBar';
+import { styled } from '@mui/material/styles';
+import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
+import { useRecoilState } from "recoil";
 
 import LocationSelect from "./LocationSelect";
+import { isDrawOpenState } from "state";
+import { HEADER_DRAWER_WIDTH } from "utility";
 import { ABOUT_URL, FEEDBACK_URL } from "utility";
 
-export default function TopBar() {
+const AppBar = styled(MuiAppBar, {
+  shouldForwardProp: (prop) => prop !== 'open',
+})(({ theme, open }) => ({
+  zIndex: theme.zIndex.drawer + 1,
+  transition: theme.transitions.create(['width', 'margin'], {
+    easing: theme.transitions.easing.sharp,
+    duration: theme.transitions.duration.leavingScreen,
+  }),
+  ...(open && {
+    marginLeft: HEADER_DRAWER_WIDTH,
+    width: `calc(100% - ${HEADER_DRAWER_WIDTH}px)`,
+    transition: theme.transitions.create(['width', 'margin'], {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.enteringScreen,
+    }),
+  }),
+}));
+
+export default function TopBar({ position }) {
+  const [ isDrawOpen, setIsDrawOpen] = useRecoilState(isDrawOpenState);
+
   return (
-    <Box>
-      <AppBar position="static">
-        <Toolbar>
-          <Typography variant="h2">🇳🇵</Typography>
-          <Typography sx={{pt: 0.5}} variant="h4">San̐gai</Typography>
-          <Box sx={{
-            pl: 2,
-            pt: 2,
-            display: "flex",
-            flexGrow: 1,
-            justifyContent: "start",
-            alignItems: "end",
-          }}>
-            <Button
-              component={Link}
-              href={ABOUT_URL}
-              target="_blank"
-              sx={{ color: "inherit" }}
-            >
-              About
-            </Button>
-            <Button
-              component={Link}
-              href={FEEDBACK_URL}
-              target="_blank"
-              sx={{ color: "inherit" }}
-            >
-              Feedback
-            </Button>
-          </Box>
-          <LocationSelect />
-        </Toolbar>
-      </AppBar>
-    </Box>
+    <AppBar {...{ position, open: isDrawOpen }}>
+      <Toolbar>
+        <IconButton
+          color="inherit"
+          aria-label="open drawer"
+          onClick={() => setIsDrawOpen(true)}
+          edge="start"
+          sx={{
+            p: 1.5,
+            ml: -2,
+            ...(isDrawOpen && { display: 'none' }),
+          }}
+        >
+            <MenuIcon fontSize="large" />
+        </IconButton>
+        <Typography variant="h2" sx={{ pl: 0, ml: -1.5 }}>🇳🇵</Typography>
+        <Typography sx={{pt: 0.5}} variant="h4">San̐gai</Typography>
+        <Box sx={{
+          pl: 2,
+          pt: 2,
+          display: "flex",
+          flexGrow: 1,
+          justifyContent: "start",
+          alignItems: "end",
+        }}>
+          <Button
+            component={Link}
+            href={ABOUT_URL}
+            target="_blank"
+            sx={{ color: "inherit" }}
+          >
+            About
+          </Button>
+          <Button
+            component={Link}
+            href={FEEDBACK_URL}
+            target="_blank"
+            sx={{ color: "inherit" }}
+          >
+            Feedback
+          </Button>
+        </Box>
+        {/* <LocationSelect /> */}
+      </Toolbar>
+    </AppBar>
   );
 }

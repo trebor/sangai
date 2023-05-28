@@ -5,7 +5,7 @@ import { useRecoilValue } from 'recoil';
 
 import './App.css';
 import Map from './Map';
-import TopBar from './TopBar2';
+import TopBar from './TopBar';
 import LeftBar from './LeftBar';
 import Spinner from 'components/Spinner';
 import DrawerHeader from "components/DrawerHeader";
