@@ -1,4 +1,5 @@
 import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
 import { Suspense } from "react"
 import { ThemeProvider } from '@mui/material/styles';
 import { useRecoilValue } from 'recoil';
@@ -14,22 +15,26 @@ import { themeState } from 'state';
 export default function App() {
   return (
     <ThemeProvider theme={useRecoilValue(themeState)}>
-      <Box sx={{
-        height: "100%",
-        display: "flex",
-        flexDirection: "column",
-      }}>
-        <Suspense fallback={<Spinner />}>
-          <Box sx={{ display: 'flex' }}>
-            <TopBar position="fixed" />
-            <LeftBar position="fixed" />
-            <Box component="main" sx={{ flexGrow: 1 }}>
+      <Suspense fallback={<Spinner />}>
+        <Box height="100%" display="flex" flexDirection="column">
+          <Box sx={{ display: 'flex', flexGrow: 1 }}>
+            <LeftBar />
+            <TopBar />
+            <Box
+              display="flex"
+              flexDirection="column"
+              flexGrow="1"
+            >
               <DrawerHeader />
+              <Suspense fallback={<Spinner />}>
+                <Box flexGrow="1">
+                  <Map />
+                </Box>
+              </Suspense>
             </Box>
           </Box>
-          <Map />
-        </Suspense>
-      </Box>
+        </Box>
+      </Suspense>
     </ThemeProvider>
   );
 }

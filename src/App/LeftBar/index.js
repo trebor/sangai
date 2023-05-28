@@ -60,7 +60,6 @@ const LeftBar = () => {
   return (
     <Drawer variant="permanent" open={isDrawOpen}>
       <DrawerHeader>
-        <Typography variant="h2">&nbsp;</Typography>
         <IconButton onClick={() => setIsDrawOpen(false)}>
           {
             theme.direction === 'rtl'
