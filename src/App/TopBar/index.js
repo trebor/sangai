@@ -1,6 +1,4 @@
 import Box from '@mui/material/Box';
-import Link from '@mui/material/Link';
-import Button from '@mui/material/Button';
 import Toolbar from '@mui/material/Toolbar';
 import MenuIcon from '@mui/icons-material/Menu';
 import MuiAppBar from '@mui/material/AppBar';
@@ -12,7 +10,6 @@ import { useRecoilState } from "recoil";
 import LocationSelect from "./LocationSelect";
 import { isDrawOpenState } from "state";
 import { HEADER_DRAWER_WIDTH } from "utility";
-import { ABOUT_URL, FEEDBACK_URL } from "utility";
 
 const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== 'open',
@@ -49,34 +46,19 @@ export default function TopBar({ position }) {
             ...(isDrawOpen && { display: 'none' }),
           }}
         >
-            <MenuIcon fontSize="large" />
+          <MenuIcon fontSize="large" />
         </IconButton>
-        <Typography variant="h2" sx={{ pl: 0, ml: -1.5 }}>🇳🇵</Typography>
-        <Typography sx={{pt: 0.5}} variant="h4">San̐gai</Typography>
-        <Box sx={{
-          pl: 2,
-          pt: 2,
-          display: "flex",
-          flexGrow: 1,
-          justifyContent: "start",
-          alignItems: "end",
-        }}>
-          <Button
-            component={Link}
-            href={ABOUT_URL}
-            target="_blank"
-            sx={{ color: "inherit" }}
-          >
-            About
-          </Button>
-          <Button
-            component={Link}
-            href={FEEDBACK_URL}
-            target="_blank"
-            sx={{ color: "inherit" }}
-          >
-            Feedback
-          </Button>
+        <Box display="flex" alignItems="center">
+          <Typography variant="h2" sx={{
+            mr: -0.5,
+            ml: -1.5,
+          }}>🇳🇵</Typography>
+          <Typography sx={{
+            display: "block",
+            pt: 1.2,
+          }} variant={"h4"}>
+              San̐gai
+          </Typography>
         </Box>
         {/* <LocationSelect /> */}
       </Toolbar>
