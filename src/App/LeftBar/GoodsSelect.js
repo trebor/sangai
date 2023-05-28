@@ -67,7 +67,7 @@ const Good = ({ good, isOpen }) => {
   );
 }
 
-const GoodsSelector = ({ isOpen }) => {
+const GoodsSelect = ({ isOpen }) => {
   const goods = useRecoilValue(goodTypesState);
 
   return (
@@ -79,4 +79,4 @@ const GoodsSelector = ({ isOpen }) => {
   );
 }
 
-export default GoodsSelector;
+export default GoodsSelect;

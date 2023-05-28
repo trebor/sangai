@@ -8,7 +8,7 @@ import { useRecoilState } from "recoil";
 import { styled, useTheme } from '@mui/material/styles';
 
 import DrawerHeader from "components/DrawerHeader";
-import GoodsSelector from "./GoodsSelector";
+import GoodsSelect from "./GoodsSelect";
 import { HEADER_DRAWER_WIDTH } from "utility";
 import { isDrawOpenState, showClustersState } from "state";
 
@@ -70,7 +70,7 @@ const LeftBar = () => {
         </IconButton>
       </DrawerHeader>
       <Divider />
-      <GoodsSelector isOpen={isDrawOpen} />
+      <GoodsSelect isOpen={isDrawOpen} />
       <Divider />
     </Drawer>
   );
