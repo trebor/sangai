@@ -6,12 +6,14 @@ import { useRecoilValue } from "recoil";
 
 import { isDrawOpenState } from "state";
 
-const DrawerItem = ({ children, onClick=() => {}, label }) => {
+const DrawerItem = ({ children, onClick=() => {}, label, href }) => {
   const isOpen = useRecoilValue(isDrawOpenState);
 
   return (
     <ListItem disablePadding sx={{ display: 'block' }}>
       <ListItemButton
+        href={href}
+        target="_blank"
         onClick={onClick}
         sx={{
           minHeight: 48,

@@ -7,9 +7,9 @@ import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import { useRecoilState } from "recoil";
 import { styled, useTheme } from '@mui/material/styles';
 
+import Configure from "./Configure";
 import GoodsSelect from "./GoodsSelect";
 import DrawerHeader from "components/DrawerHeader";
-import ClusterSelect from "./ClusterSelect";
 import { isDrawOpenState } from "state";
 import { HEADER_DRAWER_WIDTH } from "utility";
 
@@ -72,7 +72,7 @@ const LeftBar = () => {
       <Divider />
       <GoodsSelect isOpen={isDrawOpen} />
       <Divider />
-      <ClusterSelect />
+      <Configure />
     </Drawer>
   );
 }

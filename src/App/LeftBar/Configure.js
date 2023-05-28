@@ -1,11 +1,14 @@
 import List from '@mui/material/List';
 import Avatar from '@mui/material/Avatar';
 import Switch from '@mui/material/Switch';
+import InfoIcon from '@mui/icons-material/Info';
 import BubbleChart from '@mui/icons-material/BubbleChart';
-import { useTheme } from '@mui/material/styles';
 import ScatterPlot from '@mui/icons-material/ScatterPlot';
+import FeedbackIcon from '@mui/icons-material/Feedback';
+import { useTheme } from '@mui/material/styles';
 import { useRecoilState, useRecoilValue } from "recoil";
 
+import { ABOUT_URL, FEEDBACK_URL } from "utility";
 import DrawerItem from "components/DrawerItem";
 import { showClustersState } from "state";
 
@@ -26,21 +29,27 @@ const CheckIcon = ({ Icon }) => {
   );
 }
 
-const ClusterSelect = () => {
+const Configure = () => {
   const [ showClusters, setShowClusters ] = useRecoilState(showClustersState);
 
   return (
     <List>
       <DrawerItem label="Cluster Goods" >
         <Switch
-          onChange={({ target: { checked }}) => setShowClusters(checked)}
+          onChange={({ target: { checked } }) => setShowClusters(checked)}
           checked={showClusters}
           checkedIcon={<CheckIcon Icon={BubbleChart} />}
           icon={<CheckIcon Icon={ScatterPlot} />}
         />
       </DrawerItem>
+      <DrawerItem label="About" href={ABOUT_URL}>
+        <InfoIcon fontSize="large"/>
+      </DrawerItem>
+      <DrawerItem label="Feedback" href={FEEDBACK_URL}>
+        <FeedbackIcon fontSize="large"/>
+      </DrawerItem>
     </List>
   );
 }
 
-export default ClusterSelect;
+export default Configure;
