@@ -60,7 +60,7 @@ export default function TopBar({ position }) {
               San̐gai
           </Typography>
         </Box>
-        {/* <LocationSelect /> */}
+        <LocationSelect />
       </Toolbar>
     </AppBar>
   );
