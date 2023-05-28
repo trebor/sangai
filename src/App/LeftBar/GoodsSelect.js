@@ -1,12 +1,9 @@
 import List from '@mui/material/List';
 import Badge from '@mui/material/Badge';
-import ListItem from '@mui/material/ListItem';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-import ListItemButton from '@mui/material/ListItemButton';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { useRecoilState, useRecoilValue } from "recoil";
+import DrawerItem from "components/DrawerItem";
 import {
   goodTypesState,
   selectedGoodTypesState,
@@ -27,43 +24,22 @@ const Good = ({ good, isOpen }) => {
   }
 
   return (
-    <ListItem
-      disablePadding
-      sx={{ display: 'block' }}
+    <DrawerItem
       onClick={handleChange}
+      label={name}
     >
-      <ListItemButton
-        sx={{
-          minHeight: 48,
-          justifyContent: isOpen ? 'initial' : 'center',
-          px: 2.5,
-        }}
+      <Badge
+        color="secondary"
+        variant="dot"
+        invisible={!isSelected(good)}
       >
-        <ListItemIcon
-          sx={{
-            minWidth: 40,
-            mr: isOpen ? 3 : 'auto',
-            justifyContent: 'center',
-          }}
-        >
-          <Badge
-            color="secondary"
-            variant="dot"
-            invisible={!isSelected(good)}
-          >
-            <FontAwesomeIcon
-              icon={icon}
-              size="2xl"
-              color={color}
-            />
-          </Badge>
-        </ListItemIcon>
-        <ListItemText
-          primary={name}
-          sx={{ opacity: isOpen ? 1 : 0 }}
+        <FontAwesomeIcon
+          icon={icon}
+          size="2xl"
+          color={color}
         />
-      </ListItemButton>
-    </ListItem>
+      </Badge>
+    </DrawerItem>
   );
 }
 
@@ -71,7 +47,7 @@ const GoodsSelect = ({ isOpen }) => {
   const goods = useRecoilValue(goodTypesState);
 
   return (
-    <List sx={{ mt: 1 }}>
+    <List>
       {goods.map(good => (
         <Good key={good.id} {...{ good, isOpen }} />
       ))}

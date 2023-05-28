@@ -7,10 +7,11 @@ import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import { useRecoilState } from "recoil";
 import { styled, useTheme } from '@mui/material/styles';
 
-import DrawerHeader from "components/DrawerHeader";
 import GoodsSelect from "./GoodsSelect";
+import DrawerHeader from "components/DrawerHeader";
+import ClusterSelect from "./ClusterSelect";
+import { isDrawOpenState } from "state";
 import { HEADER_DRAWER_WIDTH } from "utility";
-import { isDrawOpenState, showClustersState } from "state";
 
 const openedMixin = (theme) => ({
   width: HEADER_DRAWER_WIDTH,
@@ -54,7 +55,6 @@ const Drawer = styled(MuiDrawer, {
 
 const LeftBar = () => {
   const theme = useTheme();
-  const [ showClusters, setShowClusters ] = useRecoilState(showClustersState);
   const [ isDrawOpen, setIsDrawOpen] = useRecoilState(isDrawOpenState);
 
   return (
@@ -72,6 +72,7 @@ const LeftBar = () => {
       <Divider />
       <GoodsSelect isOpen={isDrawOpen} />
       <Divider />
+      <ClusterSelect />
     </Drawer>
   );
 }
