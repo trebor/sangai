@@ -12,11 +12,25 @@ import {
   selectedGoodTypesState,
 } from "state";
 
-const Good = ({ good: { name, color, icon }, isOpen }) => {
+const Good = ({ good, isOpen }) => {
+  const { name, color, icon } = good;
+  const [ selectedGoods, setSelectedGoods ] = useRecoilState(
+    selectedGoodTypesState
+  );
+  const isSelected = good => selectedGoods.includes(good);
+
+  const handleChange = () => {
+    const updatedSelection = isSelected(good)
+          ? selectedGoods.filter(d => d.id !== good.id)
+          : [good, ...selectedGoods];
+    setSelectedGoods(updatedSelection);
+  }
+
   return (
     <ListItem
       disablePadding
       sx={{ display: 'block' }}
+      onClick={handleChange}
     >
       <ListItemButton
         sx={{
@@ -35,7 +49,7 @@ const Good = ({ good: { name, color, icon }, isOpen }) => {
           <Badge
             color="secondary"
             variant="dot"
-            /* anchorOrigin={{ horizontal: "left", vertical: 'top' }} */
+            invisible={!isSelected(good)}
           >
             <FontAwesomeIcon
               icon={icon}
@@ -55,13 +69,6 @@ const Good = ({ good: { name, color, icon }, isOpen }) => {
 
 const GoodsSelector = ({ isOpen }) => {
   const goods = useRecoilValue(goodTypesState);
-  const [ selectedGoods, setSelectedGoods ] = useRecoilState(
-    selectedGoodTypesState
-  );
-
-  const handleChange = (event, values) => {
-    setSelectedGoods(values);
-  }
 
   return (
     <List sx={{ mt: 1 }}>

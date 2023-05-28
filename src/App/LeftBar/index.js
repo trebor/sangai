@@ -13,10 +13,7 @@ import { useRecoilState } from "recoil";
 import TopBar from '../TopBar2';
 import { HEADER_DRAWER_WIDTH } from "utility";
 import GoodsSelector from "./GoodsSelector";
-import {
-  selectedGoodTypesState,
-  showClustersState
-} from "state";
+import { showClustersState } from "state";
 
 const openedMixin = (theme) => ({
   width: HEADER_DRAWER_WIDTH,
@@ -68,13 +65,6 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 const LeftBar = ({ open, handleDrawerClose }) => {
   const theme = useTheme();
   const [ showClusters, setShowClusters ] = useRecoilState(showClustersState);
-  const [ selectedGoods, setSelectedGoods ] = useRecoilState(
-    selectedGoodTypesState
-  );
-
-  const handleChange = (event, values) => {
-    setSelectedGoods(values);
-  }
 
   return (
     <Drawer variant="permanent" open={open}>
