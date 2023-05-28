@@ -13,16 +13,6 @@ import {
   showClustersState
 } from "state";
 
-// import Avatar from '@mui/material/Avatar';
-// import BubbleChart from '@mui/icons-material/BubbleChart';
-// import ScatterPlot from '@mui/icons-material/ScatterPlot';
-//
-// const CheckIcon = ({ icon }) => (
-//   <Avatar  sx={{ bgColor: "primary", mt: -0.4, width: 25, height: 25 }}>
-//     {icon}
-//   </Avatar>
-// );
-
 export default function GoodSelector() {
   const goods = useRecoilValue(goodTypesState);
   const [ showClusters, setShowClusters ] = useRecoilState(showClustersState);
