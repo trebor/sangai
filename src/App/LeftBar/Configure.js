@@ -40,6 +40,7 @@ const Configure = () => {
           checked={showClusters}
           checkedIcon={<CheckIcon Icon={BubbleChart} />}
           icon={<CheckIcon Icon={ScatterPlot} />}
+          sx={{ ml: -0.5 }}
         />
       </DrawerItem>
       <DrawerItem label="About" href={ABOUT_URL}>
