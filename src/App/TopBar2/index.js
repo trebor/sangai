@@ -4,11 +4,13 @@ import Button from '@mui/material/Button';
 import Toolbar from '@mui/material/Toolbar';
 import MenuIcon from '@mui/icons-material/Menu';
 import MuiAppBar from '@mui/material/AppBar';
+import { styled } from '@mui/material/styles';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
-import { styled, useTheme } from '@mui/material/styles';
+import { useRecoilState } from "recoil";
 
 import LocationSelect from "./LocationSelect";
+import { isDrawOpenState } from "state";
 import { HEADER_DRAWER_WIDTH } from "utility";
 import { ABOUT_URL, FEEDBACK_URL } from "utility";
 
@@ -30,19 +32,21 @@ const AppBar = styled(MuiAppBar, {
   }),
 }));
 
-export default function TopBar({ position, open, handleDrawerOpen }) {
+export default function TopBar({ position }) {
+  const [ isDrawOpen, setIsDrawOpen] = useRecoilState(isDrawOpenState);
+
   return (
-    <AppBar {...{ position, open }}>
+    <AppBar {...{ position, open: isDrawOpen }}>
       <Toolbar>
         <IconButton
           color="inherit"
           aria-label="open drawer"
-          onClick={handleDrawerOpen}
+          onClick={() => setIsDrawOpen(true)}
           edge="start"
           sx={{
             p: 1.5,
             ml: -2,
-            ...(open && { display: 'none' }),
+            ...(isDrawOpen && { display: 'none' }),
           }}
         >
             <MenuIcon fontSize="large" />

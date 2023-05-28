@@ -5,9 +5,10 @@ import { useRecoilValue } from 'recoil';
 
 import './App.css';
 import Map from './Map';
-// import TopBar from './TopBar2';
+import TopBar from './TopBar2';
 import LeftBar from './LeftBar';
 import Spinner from 'components/Spinner';
+import DrawerHeader from "components/DrawerHeader";
 import { themeState } from 'state';
 
 export default function App() {
@@ -19,13 +20,14 @@ export default function App() {
         flexDirection: "column",
       }}>
         <Suspense fallback={<Spinner />}>
-          {/* <TopBar /> */}
-          {/* <Box sx={{ display: "flex", flex: "1 1 0" }}> */}
-            <LeftBar />
-            {/* <Suspense fallback={<Spinner />}> */}
-            {/*   <Map /> */}
-            {/* </Suspense> */}
-          {/* </Box> */}
+          <Box sx={{ display: 'flex' }}>
+            <TopBar position="fixed" />
+            <LeftBar position="fixed" />
+            <Box component="main" sx={{ flexGrow: 1 }}>
+              <DrawerHeader />
+            </Box>
+          </Box>
+          <Map />
         </Suspense>
       </Box>
     </ThemeProvider>
