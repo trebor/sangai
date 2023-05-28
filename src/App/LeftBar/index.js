@@ -12,7 +12,7 @@ import { useRecoilState } from "recoil";
 
 import TopBar from '../TopBar2';
 import { HEADER_DRAWER_WIDTH } from "utility";
-import GoodsSelector3 from "./GoodsSelector3";
+import GoodsSelector from "./GoodsSelector";
 import {
   selectedGoodTypesState,
   showClustersState
@@ -89,7 +89,7 @@ const LeftBar = ({ open, handleDrawerClose }) => {
         </IconButton>
       </DrawerHeader>
       <Divider />
-      <GoodsSelector3 isOpen={open} />
+      <GoodsSelector isOpen={open} />
       <Divider />
     </Drawer>
   );

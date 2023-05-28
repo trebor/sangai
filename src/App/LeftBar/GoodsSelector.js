@@ -1,21 +1,60 @@
-import Box from '@mui/material/Box';
-import Switch from '@mui/material/Switch';
-import Typography from '@mui/material/Typography';
-import ToggleButton from '@mui/material/ToggleButton';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
+import List from '@mui/material/List';
+import Badge from '@mui/material/Badge';
+import ListItem from '@mui/material/ListItem';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
+import ListItemButton from '@mui/material/ListItemButton';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useRecoilState, useRecoilValue } from "recoil";
 
+import { useRecoilState, useRecoilValue } from "recoil";
 import {
   goodTypesState,
   selectedGoodTypesState,
-  showClustersState
 } from "state";
 
-export default function GoodSelector() {
+const Good = ({ good: { name, color, icon }, isOpen }) => {
+  return (
+    <ListItem
+      disablePadding
+      sx={{ display: 'block' }}
+    >
+      <ListItemButton
+        sx={{
+          minHeight: 48,
+          justifyContent: isOpen ? 'initial' : 'center',
+          px: 2.5,
+        }}
+      >
+        <ListItemIcon
+          sx={{
+            minWidth: 40,
+            mr: isOpen ? 3 : 'auto',
+            justifyContent: 'center',
+          }}
+        >
+          <Badge
+            color="secondary"
+            variant="dot"
+            /* anchorOrigin={{ horizontal: "left", vertical: 'top' }} */
+          >
+            <FontAwesomeIcon
+              icon={icon}
+              size="2xl"
+              color={color}
+            />
+          </Badge>
+        </ListItemIcon>
+        <ListItemText
+          primary={name}
+          sx={{ opacity: isOpen ? 1 : 0 }}
+        />
+      </ListItemButton>
+    </ListItem>
+  );
+}
+
+const GoodsSelector = ({ isOpen }) => {
   const goods = useRecoilValue(goodTypesState);
-  const [ showClusters, setShowClusters ] = useRecoilState(showClustersState);
   const [ selectedGoods, setSelectedGoods ] = useRecoilState(
     selectedGoodTypesState
   );
@@ -25,49 +64,12 @@ export default function GoodSelector() {
   }
 
   return (
-    <Box>
-      <Typography variant="h4" align="center" sx={{p: 2}}>
-        Public Goods
-      </Typography>
-      <ToggleButtonGroup
-        color="primary"
-        orientation="vertical"
-        value={selectedGoods}
-        onChange={handleChange}
-        aria-label="Public Good"
-        sx={{minWidth: "12em", width: "18em"}}
-      >
-        {goods.map(good => (
-          <ToggleButton key={good.id} value={good}>
-            <Box sx={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-              width: "100%"
-            }}>
-              <FontAwesomeIcon
-                icon={good.icon}
-                size="2x"
-                color={good.color}
-              />
-              <span>{good.name}</span>
-            </Box>
-          </ToggleButton>
-        ))}
-      </ToggleButtonGroup>
-    <Box sx={{ p: 2, pb: 5}}>
-        <FormControlLabel
-          style={{width: "100%" }}
-          control={
-            <Switch
-              onChange={({ target }) => setShowClusters(target.checked)}
-              checked={showClusters}
-              /* checkedIcon={<CheckIcon icon={<BubbleChart />}/>} */
-              /* icon={<CheckIcon icon={<ScatterPlot />}/>} */
-            />}
-          label="Cluster Goods"
-        />
-      </Box>
-    </Box>
-  )
+    <List sx={{ mt: 1 }}>
+      {goods.map(good => (
+        <Good key={good.id} {...{ good, isOpen }} />
+      ))}
+    </List>
+  );
 }
+
+export default GoodsSelector;
