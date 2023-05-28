@@ -4,18 +4,19 @@ import Switch from '@mui/material/Switch';
 import BubbleChart from '@mui/icons-material/BubbleChart';
 import { useTheme } from '@mui/material/styles';
 import ScatterPlot from '@mui/icons-material/ScatterPlot';
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 
 import DrawerItem from "components/DrawerItem";
 import { showClustersState } from "state";
 
 const CheckIcon = ({ Icon }) => {
+  const showClusters = useRecoilValue(showClustersState);
   const { palette } = useTheme();
 
   return (
     <Avatar
       sx={{
-        bgcolor: palette.primary.main,
+        bgcolor: showClusters ? palette.primary.main : "inital",
         width: 25,
         height: 25,
         mt: -0.3
@@ -30,9 +31,8 @@ const ClusterSelect = () => {
 
   return (
     <List>
-      <DrawerItem label="Cluster" >
+      <DrawerItem label="Cluster Goods" >
         <Switch
-          _sx={{ background: "lightgreen" }}
           onChange={({ target: { checked }}) => setShowClusters(checked)}
           checked={showClusters}
           checkedIcon={<CheckIcon Icon={BubbleChart} />}
