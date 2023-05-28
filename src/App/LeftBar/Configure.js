@@ -34,7 +34,13 @@ const Configure = () => {
 
   return (
     <List>
-      <DrawerItem label="Cluster Goods" >
+      <DrawerItem
+        label="Cluster Goods"
+        tooltip={showClusters
+            ? "Click to show goods on the map separately"
+            : "Click to cluster  goods on the map"
+        }
+      >
         <Switch
           onChange={({ target: { checked } }) => setShowClusters(checked)}
           checked={showClusters}
@@ -43,10 +49,18 @@ const Configure = () => {
           sx={{ ml: -0.5 }}
         />
       </DrawerItem>
-      <DrawerItem label="About" href={ABOUT_URL}>
+      <DrawerItem
+        label="About"
+        href={ABOUT_URL}
+        tooltip="Click to visit project description"
+      >
         <InfoIcon fontSize="large"/>
       </DrawerItem>
-      <DrawerItem label="Feedback" href={FEEDBACK_URL}>
+      <DrawerItem
+        label="Feedback"
+        href={FEEDBACK_URL}
+        tooltip="Click to provide project feedback"
+      >
         <FeedbackIcon fontSize="large"/>
       </DrawerItem>
     </List>

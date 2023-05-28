@@ -14,10 +14,10 @@ const Good = ({ good, isOpen }) => {
   const [ selectedGoods, setSelectedGoods ] = useRecoilState(
     selectedGoodTypesState
   );
-  const isSelected = good => selectedGoods.includes(good);
+  const isSelected = selectedGoods.includes(good);
 
   const handleChange = () => {
-    const updatedSelection = isSelected(good)
+    const updatedSelection = isSelected
           ? selectedGoods.filter(d => d.id !== good.id)
           : [good, ...selectedGoods];
     setSelectedGoods(updatedSelection);
@@ -25,13 +25,14 @@ const Good = ({ good, isOpen }) => {
 
   return (
     <DrawerItem
+      tooltip={`${isSelected ? "Hide" : "Show"} ${name}`}
       onClick={handleChange}
       label={name}
     >
       <Badge
         color="secondary"
         variant="dot"
-        invisible={!isSelected(good)}
+        invisible={!isSelected}
       >
         <FontAwesomeIcon
           icon={icon}
