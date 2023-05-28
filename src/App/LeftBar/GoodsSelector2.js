@@ -1,35 +1,32 @@
 import { useState } from "react";
-import TopBar from '../TopBar2';
-import { useRecoilState, useRecoilValue } from "recoil";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { styled, useTheme } from '@mui/material/styles';
+import Box from '@mui/material/Box';
+import List from '@mui/material/List';
 import Badge from '@mui/material/Badge';
+import Divider from '@mui/material/Divider';
+import ListItem from '@mui/material/ListItem';
+import MuiDrawer from '@mui/material/Drawer';
+import Typography from '@mui/material/Typography';
+import IconButton from '@mui/material/IconButton';
+import CssBaseline from '@mui/material/CssBaseline';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
+import ListItemButton from '@mui/material/ListItemButton';
+import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
+import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
+import TopBar from '../TopBar2';
+import { HEADER_DRAWER_WIDTH } from "utility";
+import { useRecoilState, useRecoilValue } from "recoil";
 import {
   goodTypesState,
   selectedGoodTypesState,
   showClustersState
 } from "state";
 
-import { styled, useTheme } from '@mui/material/styles';
-import Box from '@mui/material/Box';
-import MuiDrawer from '@mui/material/Drawer';
-// import MuiAppBar from '@mui/material/AppBar';
-import List from '@mui/material/List';
-import CssBaseline from '@mui/material/CssBaseline';
-import Typography from '@mui/material/Typography';
-import Divider from '@mui/material/Divider';
-import IconButton from '@mui/material/IconButton';
-import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-
-const drawerWidth = 240;
-
 const openedMixin = (theme) => ({
-  width: drawerWidth,
+  width: HEADER_DRAWER_WIDTH,
   transition: theme.transitions.create('width', {
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.enteringScreen,
@@ -60,7 +57,7 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 
 const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' })(
   ({ theme, open }) => ({
-    width: drawerWidth,
+    width: HEADER_DRAWER_WIDTH,
     flexShrink: 0,
     whiteSpace: 'nowrap',
     boxSizing: 'border-box',

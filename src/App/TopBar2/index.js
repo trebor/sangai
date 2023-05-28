@@ -9,10 +9,8 @@ import Typography from '@mui/material/Typography';
 import { styled, useTheme } from '@mui/material/styles';
 
 import LocationSelect from "./LocationSelect";
+import { HEADER_DRAWER_WIDTH } from "utility";
 import { ABOUT_URL, FEEDBACK_URL } from "utility";
-
-
-const drawerWidth = 240;
 
 const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== 'open',
@@ -23,8 +21,8 @@ const AppBar = styled(MuiAppBar, {
     duration: theme.transitions.duration.leavingScreen,
   }),
   ...(open && {
-    marginLeft: drawerWidth,
-    width: `calc(100% - ${drawerWidth}px)`,
+    marginLeft: HEADER_DRAWER_WIDTH,
+    width: `calc(100% - ${HEADER_DRAWER_WIDTH}px)`,
     transition: theme.transitions.create(['width', 'margin'], {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.enteringScreen,
