@@ -58,7 +58,7 @@ const LocationSelectDialog = () => {
 }
 
 const LevelLabel = ({ level }) => (
-  <Chip sx={{ mx: 0.2}} label={level.name} />
+  <Chip sx={{ mx: 0.2, fontWeight: "bold" }} label={level.name} />
 );
 
 const HideBox = ({ children, sx = {}, ...rest }) => {
@@ -100,7 +100,6 @@ const HideBox = ({ children, sx = {}, ...rest }) => {
       {children}
     </Box>)
 };
-
 
 const LocationSelect = () => {
   const [ isOpen, setIsOpen ] = useState(false);
