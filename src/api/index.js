@@ -1,4 +1,4 @@
-import wardsGeoJson from 'data/nepal-wards.json';
+import wardsGeoJson from "data/nepal-wards.json";
 import { API_HOST_NAME, getUserLang } from "utility";
 
 export const fetchPublicGoods = (
@@ -7,17 +7,18 @@ export const fetchPublicGoods = (
   municipalityId,
   wardNo,
   goodTypeId
-) =>apiFetch(
-  `${provinceId}/${districtId}/${municipalityId}/${wardNo}/${goodTypeId}/`
-).then(goods => {
-  return goods.map(good => ({
-    ...good,
-    shape: {
-      ...good.shape,
-      properties: { type: goodTypeId }
-    }
-  }));
-});
+) =>
+  apiFetch(
+    `${provinceId}/${districtId}/${municipalityId}/${wardNo}/${goodTypeId}/`
+  ).then((goods) => {
+    return goods.map((good) => ({
+      ...good,
+      shape: {
+        ...good.shape,
+        properties: { type: goodTypeId },
+      },
+    }));
+  });
 
 export const fetchWardsGeojson = () => Promise.resolve(wardsGeoJson);
 export const fetchGoodTypes = () => apiFetch("good-type/");
@@ -27,19 +28,19 @@ export const fetchDistricts = (provinceId) =>
 export const fetchMunicipalities = (districtId) =>
   apiFetch(`location/district/${districtId}/`);
 export const fetchWards = (municipalityId) =>
-apiFetch(`location/municipality/${municipalityId}/`).then(
-  wards => wards.map(({ name, id}) =>
-    ({ name: `Ward ${name}`, id: name, mapId: parseInt(id) })
-  ));
+  apiFetch(`location/municipality/${municipalityId}/`).then((wards) =>
+    wards.map(({ name, id }) => ({
+      name: `Ward ${name}`,
+      id: name,
+      mapId: parseInt(id),
+    }))
+  );
 
 const apiHost = window.location.host.includes("sangai")
   ? ""
   : `https://${API_HOST_NAME}`;
 
-const apiFetch = path => fetch(
-  `${apiHost}/api/${path}?ln=${getUserLang()}`,
-  { mode: 'cors' }
-)
-  .then((response) => response.json());
-
-
+const apiFetch = (path) =>
+  fetch(`${apiHost}/api/${path}?ln=${getUserLang()}`, { mode: "cors" }).then(
+    (response) => response.json()
+  );

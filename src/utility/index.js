@@ -7,61 +7,63 @@ import {
   faFaucet,
   faRoad,
   faTrash,
-} from '@fortawesome/free-solid-svg-icons'
+} from "@fortawesome/free-solid-svg-icons";
 
 // constans
 
 export const HEADER_DRAWER_WIDTH = 205;
-export const MAPBOX_TOKEN = 'pk.eyJ1IjoidHJlYm9yZXNxdWUiLCJhIjoiY2o1eDNwaXN6MDBjczJ3cW81ODB5MXVhaiJ9.laxgliFuMkrQdZEMiEofaw';
-export const CUSTOM_MAP_STYLE = "mapbox://styles/treboresque/clhxswny2007g01pvf92rggc6";
+export const MAPBOX_TOKEN =
+  "pk.eyJ1IjoidHJlYm9yZXNxdWUiLCJhIjoiY2o1eDNwaXN6MDBjczJ3cW81ODB5MXVhaiJ9.laxgliFuMkrQdZEMiEofaw";
+export const CUSTOM_MAP_STYLE =
+  "mapbox://styles/treboresque/clhxswny2007g01pvf92rggc6";
 export const DEFAULT_DISTRICT = "Dhankuta";
 export const API_HOST_NAME = "sangai.sujit.net.np";
 export const FEEDBACK_URL = "https://github.com/trebor/sangai/issues";
 export const ABOUT_URL = "https://github.com/trebor/sangai/#readme";
-export const GOODS_PROPERTIES_BY_ID = ({
+export const GOODS_PROPERTIES_BY_ID = {
   schools: {
     icon: faGraduationCap,
     color: schemeSet1[3],
-    nameField: 'Name of the educational institute',
-    title: "Schools"
+    nameField: "Name of the educational institute",
+    title: "Schools",
   },
   health_centers: {
     icon: faHouseMedical,
     color: schemeSet1[0],
-    nameField: 'Name of the health institute',
-    title: "Health Centers"
+    nameField: "Name of the health institute",
+    title: "Health Centers",
   },
   public_space: {
     icon: faTree,
     color: schemeSet1[2],
-    nameField: 'Name of the public space',
-    title: "Public Spaces"
+    nameField: "Name of the public space",
+    title: "Public Spaces",
   },
   public_toilets: {
     icon: faRestroom,
     color: schemeSet1[4],
-    nameField: 'Name of the public toilet',
-    title: "Public Toilets"
+    nameField: "Name of the public toilet",
+    title: "Public Toilets",
   },
   public_water: {
     icon: faFaucet,
     color: schemeSet1[1],
-    nameField: 'Name of the public water point',
-    title: "Water Points"
+    nameField: "Name of the public water point",
+    title: "Water Points",
   },
   roads: {
     icon: faRoad,
     color: schemeSet1[8],
-    nameField: 'Name of the road',
-    title: "Roads"
+    nameField: "Name of the road",
+    title: "Roads",
   },
   solid_waste: {
     icon: faTrash,
     color: schemeSet1[6],
-    nameField: 'Name of the road solid waste management',
-    title: "Trash"
+    nameField: "Name of the road solid waste management",
+    title: "Trash",
   },
-});
+};
 
 export const titelize = (string, replacementMap = {}) => {
   if (string === null) return "NULL";
@@ -85,29 +87,26 @@ export const titelize = (string, replacementMap = {}) => {
       string.replace(new RegExp(`\\b${key}\\b`, "ig"), value),
     capitalizedString
   );
-}
+};
 
-export const getUserLang = () =>
-  (navigator.language || navigator.userLanguage)
+export const getUserLang = () => navigator.language || navigator.userLanguage;
 
 export const goodTypeToImage = (
   type,
-  {
-    outset = 200,
-    opacity = 1,
-    cornerFactor = 0.25,
-    background = "white"
-  } = {}
-) => new Promise(resolve => {
-  const {
-    color,
-    icon: { icon : [ width, height,,, path ] }
-  } = type;
-  const size = Math.max(width, height) + outset;
-  const corner = size * cornerFactor;
-  const translate = [width, height].map(dim => (size - dim) / 2);
+  { outset = 200, opacity = 1, cornerFactor = 0.25, background = "white" } = {}
+) =>
+  new Promise((resolve) => {
+    const {
+      color,
+      icon: {
+        icon: [width, height, , , path],
+      },
+    } = type;
+    const size = Math.max(width, height) + outset;
+    const corner = size * cornerFactor;
+    const translate = [width, height].map((dim) => (size - dim) / 2);
 
-  const svgXml = `
+    const svgXml = `
     <svg
       xmlns="http://www.w3.org/2000/svg"
       xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -129,11 +128,11 @@ export const goodTypeToImage = (
       </g>
     </svg>`;
 
-  const svgBlob = new Blob([svgXml], {
-    type: 'image/svg+xml;charset=utf-8'
-  });
+    const svgBlob = new Blob([svgXml], {
+      type: "image/svg+xml;charset=utf-8",
+    });
 
-  const image = new Image(size, size);
-  image.src = URL.createObjectURL(svgBlob)
-  image.addEventListener("load", () => resolve(image));
-});
+    const image = new Image(size, size);
+    image.src = URL.createObjectURL(svgBlob);
+    image.addEventListener("load", () => resolve(image));
+  });

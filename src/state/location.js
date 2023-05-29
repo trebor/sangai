@@ -5,52 +5,52 @@ import {
   fetchDistricts,
   fetchMunicipalities,
   fetchWards,
-  fetchWardsGeojson
+  fetchWardsGeojson,
 } from "api";
 
 // provinces
 
 export const provincesState = selector({
   key: "provinces",
-  get: fetchProvinces
+  get: fetchProvinces,
 });
 
 export const selectedProvinceState = atom({
   key: "selectedProvince",
   default: selector({
     key: "selectedProvincesDefault",
-    get: ({ get }) => get(provincesState)[0]
-  })
+    get: ({ get }) => get(provincesState)[0],
+  }),
 });
 
 // districts
 
 export const districtsState = selector({
   key: "districts",
-  get: ({ get }) => fetchDistricts(get(selectedProvinceState).id)
+  get: ({ get }) => fetchDistricts(get(selectedProvinceState).id),
 });
 
 export const selectedDistrictState = atom({
   key: "selecteDistrict",
   default: selector({
     key: "selectedDistrictsDefault",
-    get: ({ get }) => get(districtsState)[0]
-  })
+    get: ({ get }) => get(districtsState)[0],
+  }),
 });
 
 // municipalities
 
 export const municipalitiesState = selector({
   key: "municipalities",
-  get: ({ get }) => fetchMunicipalities(get(selectedDistrictState).id)
+  get: ({ get }) => fetchMunicipalities(get(selectedDistrictState).id),
 });
 
 export const selectedMunicipalityState = atom({
   key: "selectedMunicipality",
   default: selector({
     key: "selectedMunicipalityDefault",
-    get: ({ get }) => get(municipalitiesState)[0]
-  })
+    get: ({ get }) => get(municipalitiesState)[0],
+  }),
 });
 
 // wards
@@ -71,25 +71,25 @@ export const locationLevelsMetaState = selector({
         id: "province",
         title: "Province",
         optionsState: provincesState,
-        selectedState: selectedProvinceState
+        selectedState: selectedProvinceState,
       },
       {
         id: "district",
         title: "District",
         optionsState: districtsState,
-        selectedState: selectedDistrictState
+        selectedState: selectedDistrictState,
       },
       {
         id: "municipality",
         title: "Municipality",
         optionsState: municipalitiesState,
-        selectedState: selectedMunicipalityState
+        selectedState: selectedMunicipalityState,
       },
       {
         id: "ward",
         title: "Ward",
         optionsState: wardsState,
-        selectedState: selectedWardState
+        selectedState: selectedWardState,
       },
     ];
   },
@@ -97,30 +97,31 @@ export const locationLevelsMetaState = selector({
 
 export const locationLevelsState = selector({
   key: "locationLevels",
-  get: ({ get }) => get(locationLevelsMetaState)
-    .map(level => ({
+  get: ({ get }) =>
+    get(locationLevelsMetaState).map((level) => ({
       ...level,
       options: get(level.optionsState),
-      selected: get(level.selectedState)
+      selected: get(level.selectedState),
     })),
   set: ({ get, set }, { item, levelId }) => {
-    const { selectedState } = get(locationLevelsMetaState)
-     .find(d => d.id === levelId);
+    const { selectedState } = get(locationLevelsMetaState).find(
+      (d) => d.id === levelId
+    );
     set(selectedState, item);
-  }
+  },
 });
 
 export const selectedWardState = atom({
   key: "selectedWard",
   default: selector({
     key: "selectedWardsDefault",
-    get: ({ get }) => get(wardsState)[0]
-  })
+    get: ({ get }) => get(wardsState)[0],
+  }),
 });
 
 export const wardsGeojsonState = selector({
   key: "wardsGeojson",
-  get: fetchWardsGeojson
+  get: fetchWardsGeojson,
 });
 
 export const wardGeojsonState = selector({
@@ -133,9 +134,10 @@ export const wardGeojsonState = selector({
     return {
       ...wardsGeojson,
       features: wardsGeojson.features.filter(
-        d => d.properties.new_ward_n === wardId
-          && d.properties.sddmm === municipalityId
-      )
-    }
-  }
+        (d) =>
+          d.properties.new_ward_n === wardId &&
+          d.properties.sddmm === municipalityId
+      ),
+    };
+  },
 });

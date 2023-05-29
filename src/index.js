@@ -1,21 +1,21 @@
-import ReactDOM from 'react-dom/client';
-import CssBaseline from '@mui/material/CssBaseline';
+import ReactDOM from "react-dom/client";
+import CssBaseline from "@mui/material/CssBaseline";
 // import { StrictMode } from 'react';
-import { RecoilRoot } from 'recoil';
-import reportWebVitals from './reportWebVitals';
+import { RecoilRoot } from "recoil";
+import reportWebVitals from "./reportWebVitals";
 
-import './index.css';
-import App from './App';
+import "./index.css";
+import App from "./App";
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const root = ReactDOM.createRoot(document.getElementById("root"));
 
 root.render(
-//  <StrictMode>
-    <RecoilRoot>
-      <CssBaseline />
-      <App />
-    </RecoilRoot>
-//  </StrictMode>
+  //  <StrictMode>
+  <RecoilRoot>
+    <CssBaseline />
+    <App />
+  </RecoilRoot>
+  //  </StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function
