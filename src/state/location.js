@@ -77,7 +77,7 @@ export const locationLevelsMetaState = selector({
         id: "district",
         title: "District",
         optionsState: districtsState,
-        selectedState:selectedDistrictState
+        selectedState: selectedDistrictState
       },
       {
         id: "municipality",
