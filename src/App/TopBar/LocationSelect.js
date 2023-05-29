@@ -14,7 +14,7 @@ import { useRecoilState, useRecoilValue } from "recoil";
 import ItemSelect from "components/ItemSelect";
 import { locationLevelsState } from "state";
 
-const LocationSelectDialog = () => {
+const LocationSelectDialog = ({ setIsOpen }) => {
   const [levels, setLevel] = useRecoilState(locationLevelsState);
 
   return (
@@ -22,12 +22,17 @@ const LocationSelectDialog = () => {
       <Stack spacing={2}>
         {
           levels.map(
-            ({ id, title, options, selected }) => (
+            ({ id, title, options, selected }, i) => (
               <ItemSelect
                 key={id}
                 items={options}
                 item={selected}
-                setItem={item => setLevel({ item, levelId: id })}
+                setItem={item => {
+                  setLevel({ item, levelId: id });
+                  if (i === levels.length - 1) {
+                    setIsOpen(false);
+                  }
+                }}
                 title={title}
               />
             )
@@ -105,7 +110,7 @@ const LocationSelect = () => {
         <DialogTitle>
           Choose Location
         </DialogTitle>
-        <LocationSelectDialog />
+        <LocationSelectDialog {...{setIsOpen}} />
       </Dialog>
     </Box>
   );
