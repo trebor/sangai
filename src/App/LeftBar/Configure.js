@@ -1,6 +1,7 @@
 import List from "@mui/material/List";
 import Avatar from "@mui/material/Avatar";
 import Switch from "@mui/material/Switch";
+import Divider from "@mui/material/Divider";
 import InfoIcon from "@mui/icons-material/Info";
 import BubbleChart from "@mui/icons-material/BubbleChart";
 import ScatterPlot from "@mui/icons-material/ScatterPlot";
@@ -51,6 +52,7 @@ const Configure = () => {
           sx={{ ml: -0.5 }}
         />
       </DrawerItem>
+      <Divider />
       <DrawerItem
         label="About"
         href={ABOUT_URL}
