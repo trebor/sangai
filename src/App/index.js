@@ -1,5 +1,4 @@
 import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
 import { Suspense } from "react"
 import { ThemeProvider } from '@mui/material/styles';
 import { useRecoilValue } from 'recoil';

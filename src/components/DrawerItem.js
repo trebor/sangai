@@ -7,7 +7,14 @@ import { useRecoilValue } from "recoil";
 
 import { isDrawOpenState } from "state";
 
-const DrawerItem = ({ children, onClick=() => {}, label, href, tooltip }) => {
+const DrawerItem = ({
+  children,
+  onClick,
+  label,
+  href,
+  tooltip,
+  sx
+}) => {
   const isOpen = useRecoilValue(isDrawOpenState);
 
   return (
@@ -17,7 +24,7 @@ const DrawerItem = ({ children, onClick=() => {}, label, href, tooltip }) => {
       arrow
       disableFocusListener
     >
-      <ListItem disablePadding sx={{ display: 'block' }}>
+      <ListItem disablePadding sx={{ display: 'block', ...sx }}>
         <ListItemButton
           href={href}
           target="_blank"

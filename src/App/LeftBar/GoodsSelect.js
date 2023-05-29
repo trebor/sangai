@@ -1,5 +1,6 @@
+import Box from '@mui/material/Box';
 import List from '@mui/material/List';
-import Badge from '@mui/material/Badge';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { useRecoilState, useRecoilValue } from "recoil";
@@ -29,17 +30,24 @@ const Good = ({ good, isOpen }) => {
       onClick={handleChange}
       label={name}
     >
-      <Badge
-        color="secondary"
-        variant="dot"
-        invisible={!isSelected}
-      >
+      <Box position="relative">
         <FontAwesomeIcon
           icon={icon}
           size="2xl"
           color={color}
         />
-      </Badge>
+        <CheckCircleIcon
+          color="secondary"
+          sx={{
+            position: "absolute",
+            left: "50%",
+            bottom: "-0.3em",
+            background: "white",
+            borderRadius: "50%",
+            visibility: isSelected ? "visible" : "hidden"
+          }}
+        />
+      </Box>
     </DrawerItem>
   );
 }
