@@ -1,12 +1,21 @@
+import { debounce } from "lodash";
+import Box from '@mui/material/Box';
+import Chip from '@mui/material/Chip';
+import Dialog from '@mui/material/Dialog';
+import DialogTitle from '@mui/material/DialogTitle';
+import DialogContent from '@mui/material/DialogContent';
+import { useRef, useState } from "react";
+import { useEventListener } from 'usehooks-ts'
 import { useRecoilState, useRecoilValue } from "recoil";
 
-import { municipalitiesState, selectedMunicipalityState } from "state";
-import { provincesState, selectedProvinceState } from "state";
-import { districtsState, selectedDistrictState } from "state";
-import { wardsState, selectedWardState } from "state";
 import ItemSelect from "components/ItemSelect";
+import { locationLevelsState } from "state";
+import { wardsState, selectedWardState } from "state";
+import { districtsState, selectedDistrictState } from "state";
+import { provincesState, selectedProvinceState } from "state";
+import { municipalitiesState, selectedMunicipalityState } from "state";
 
-export default function LocationSelect() {
+const LocationSelectDialog = () => {
   const [
     municipality,
     setMunicipality
@@ -16,7 +25,7 @@ export default function LocationSelect() {
   const [ward, setWard] = useRecoilState(selectedWardState);
 
   return (
-    <>
+    <DialogContent>
       <ItemSelect
         items={useRecoilValue(provincesState)}
         item={province}
@@ -41,6 +50,74 @@ export default function LocationSelect() {
         setItem={setWard}
         title="Ward"
       />
-    </>
+    </DialogContent>
   );
 }
+
+const LevelLabel = ({ level }) => (
+  <Chip sx={{ mx: 0.2}} label={level.name} />
+);
+
+const HideBox = ({ children, sx = {}, ...rest }) => {
+  const boxRef = useRef();
+
+  const handleResize = () => {
+    const { current } = boxRef;
+    const { children } = current;
+    const { y, width } = children[0].getBoundingClientRect();
+
+    for(let i = 1; i < children.length; i++){
+      const child = children[i];
+      const { y: childY } = child.getBoundingClientRect();
+      child.style.maxWidth = (childY === y ? null : `${width}px`);
+    }
+  }
+
+  useEventListener(
+    'resize',
+    debounce(handleResize, 100, { leading: true })
+  );
+
+  return (
+    <Box
+      ref={boxRef}
+      sx={{
+        mt: 1.5,
+        height: "2em",
+        display: "flex",
+        flexDirection: "row-reverse",
+        flexWrap: "wrap",
+        justifyContent: "end",
+        minWidth: "0px",
+        overflow: "hidden",
+        ...sx
+      }}
+      {...{...rest}}
+    >
+      {children}
+    </Box>)
+};
+
+
+const LocationSelect = () => {
+  const [ isOpen, setIsOpen ] = useState(false);
+  const levels = useRecoilValue(locationLevelsState);
+
+  return (
+    <Box>
+      <HideBox onClick={() => setIsOpen(!isOpen)}>
+        {
+          [...levels].reverse().map(
+            ({ id, selected }) => (<LevelLabel key={id} level={selected} />)
+          )
+        }
+      </HideBox>
+      <Dialog onClose={() => setIsOpen(false)} open={isOpen}>
+        <DialogTitle>Choose Location</DialogTitle>
+        <LocationSelectDialog />
+      </Dialog>
+    </Box>
+  );
+}
+
+export default LocationSelect;

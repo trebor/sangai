@@ -29,11 +29,11 @@ const AppBar = styled(MuiAppBar, {
   }),
 }));
 
-export default function TopBar({ position }) {
+export default function TopBar() {
   const [ isDrawOpen, setIsDrawOpen] = useRecoilState(isDrawOpenState);
 
   return (
-    <AppBar {...{ position, open: isDrawOpen }}>
+    <AppBar {...{ position: "fixed", open: isDrawOpen }}>
       <Toolbar>
         <IconButton
           color="inherit"
@@ -48,16 +48,21 @@ export default function TopBar({ position }) {
         >
           <MenuIcon fontSize="large" />
         </IconButton>
-        <Box display="flex" alignItems="center">
+        <Box display="flex" flexGrow="1" alignItems="center">
           <Typography variant="h2" sx={{
             mr: -0.5,
             ml: -1.5,
           }}>🇳🇵</Typography>
-          <Typography sx={{
-            display: "block",
-            pt: 1.2,
-          }} variant={"h4"}>
-              San̐gai
+          <Typography
+            variant="h4"
+            sx={{
+              display: "block",
+              flexGrow: 1,
+              pt: 1.2,
+              mr: 1
+            }}
+          >
+            San̐gai
           </Typography>
         </Box>
         <LocationSelect />

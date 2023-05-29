@@ -8,6 +8,7 @@ import {
   fetchWardsGeojson
 } from "api";
 
+
 // provinces
 
 export const provincesState = selector({
@@ -61,6 +62,38 @@ export const wardsState = selector({
     const id = get(selectedMunicipalityState).id;
     return fetchWards(id);
   },
+});
+
+export const locationLevelsState = selector({
+  key: "locationLevels",
+  get: ({ get }) => {
+    return [
+      {
+        id: "province",
+        title: "Province",
+        options: get(provincesState),
+        selected: get(selectedProvinceState)
+      },
+      {
+        id: "district",
+        title: "District",
+        options: get(districtsState),
+        selected: get(selectedDistrictState)
+      },
+      {
+        id: "municipality",
+        title: "Municipality",
+        options: get(municipalitiesState),
+        selected: get(selectedMunicipalityState)
+      },
+      {
+        id: "ward",
+        title: "Ward",
+        options: get(wardsState),
+        selected: get(selectedWardState)
+      },
+    ];
+  }
 });
 
 export const selectedWardState = atom({
