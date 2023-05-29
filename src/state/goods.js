@@ -12,62 +12,68 @@ import { fetchGoodTypes, fetchPublicGoods } from "api";
 
 export const showClustersState = atom({
   key: "showClusters",
-  default: true
+  default: true,
 });
 
 export const imagesLoadedState = atom({
   key: "imagesLoaded",
-  default: false
+  default: false,
 });
 
 export const goodTypesState = selector({
   key: "goodTypes",
-  get: ({ get }) => fetchGoodTypes()
-    .then(goodTypes => {
-      const typePromises = goodTypes
-        .map(goodType => ({
-          ...goodType,
-          ...GOODS_PROPERTIES_BY_ID[goodType.id],
-        }))
-            .map(type => goodTypeToImage(type).then(image => ({
+  get: ({ get }) =>
+    fetchGoodTypes()
+      .then((goodTypes) => {
+        const typePromises = goodTypes
+          .map((goodType) => ({
+            ...goodType,
+            ...GOODS_PROPERTIES_BY_ID[goodType.id],
+          }))
+          .map((type) =>
+            goodTypeToImage(type).then((image) => ({
               ...type,
               image,
             }))
-        );
-      return Promise.all(typePromises);
-    })
-    .then(types => types.sort((a, b) => a.name.localeCompare(b.name)))
+          );
+        return Promise.all(typePromises);
+      })
+      .then((types) => types.sort((a, b) => a.name.localeCompare(b.name))),
 });
 
 export const goodTypesMapState = selector({
   key: "goodTypesMap",
-  get: ({ get }) => index(get(goodTypesState), d => d.id)
+  get: ({ get }) => index(get(goodTypesState), (d) => d.id),
 });
 
 export const selectedGoodTypesState = atom({
   key: "selectedGoodTypes",
   default: selector({
     key: "selectedGoodTypesDefault",
-    get: ({ get }) => [get(goodTypesState)[0]]
-  })
+    get: ({ get }) => [get(goodTypesState)[0]],
+  }),
 });
 
 export const publicGoodsState = selector({
   key: "publicGoods",
-  get: ({ get }) => get(selectedGoodTypesState)
-    .map(goodType => get(publicGoodState(goodType)))
-    .flat()
+  get: ({ get }) =>
+    get(selectedGoodTypesState)
+      .map((goodType) => get(publicGoodState(goodType)))
+      .flat(),
 });
 
 export const publicGoodState = selectorFamily({
   key: "publicGoods",
-  get: (goodType) => ({ get }) => fetchPublicGoods(
-    get(selectedProvinceState).id,
-    get(selectedDistrictState).id,
-    get(selectedMunicipalityState).id,
-    get(selectedWardState).id,
-    goodType.id
-  )
+  get:
+    (goodType) =>
+    ({ get }) =>
+      fetchPublicGoods(
+        get(selectedProvinceState).id,
+        get(selectedDistrictState).id,
+        get(selectedMunicipalityState).id,
+        get(selectedWardState).id,
+        goodType.id
+      ),
 });
 
 export const publicGoodsGeojsonState = selector({
@@ -75,13 +81,14 @@ export const publicGoodsGeojsonState = selector({
   get: ({ get }) => ({
     type: "FeatureCollection",
     name: "goods",
-    features: get(publicGoodsState)
-      .map(({ shape: { properties, ...restShape }, ...rest}) => ({
+    features: get(publicGoodsState).map(
+      ({ shape: { properties, ...restShape }, ...rest }) => ({
         ...restShape,
         properties: {
           ...properties,
-          ...rest
-        }
-      }))
-  })
+          ...rest,
+        },
+      })
+    ),
+  }),
 });

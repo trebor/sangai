@@ -1,14 +1,14 @@
-import Box from '@mui/material/Box';
-import Chip from '@mui/material/Chip';
-import Stack from '@mui/material/Stack';
-import Dialog from '@mui/material/Dialog';
-import CloseIcon from '@mui/icons-material/Close';
-import IconButton from '@mui/material/IconButton';
-import DialogTitle from '@mui/material/DialogTitle';
+import Box from "@mui/material/Box";
+import Chip from "@mui/material/Chip";
+import Stack from "@mui/material/Stack";
+import Dialog from "@mui/material/Dialog";
+import CloseIcon from "@mui/icons-material/Close";
+import IconButton from "@mui/material/IconButton";
+import DialogTitle from "@mui/material/DialogTitle";
 import { debounce } from "lodash";
-import DialogContent from '@mui/material/DialogContent';
+import DialogContent from "@mui/material/DialogContent";
 import { useRef, useState } from "react";
-import { useEventListener } from 'usehooks-ts'
+import { useEventListener } from "usehooks-ts";
 import { useRecoilState, useRecoilValue } from "recoil";
 
 import ItemSelect from "components/ItemSelect";
@@ -20,28 +20,24 @@ const LocationSelectDialog = ({ setIsOpen }) => {
   return (
     <DialogContent>
       <Stack spacing={2}>
-        {
-          levels.map(
-            ({ id, title, options, selected }, i) => (
-              <ItemSelect
-                key={id}
-                items={options}
-                item={selected}
-                setItem={item => {
-                  setLevel({ item, levelId: id });
-                  if (i === levels.length - 1) {
-                    setIsOpen(false);
-                  }
-                }}
-                title={title}
-              />
-            )
-          )
-        }
+        {levels.map(({ id, title, options, selected }, i) => (
+          <ItemSelect
+            key={id}
+            items={options}
+            item={selected}
+            setItem={(item) => {
+              setLevel({ item, levelId: id });
+              if (i === levels.length - 1) {
+                setIsOpen(false);
+              }
+            }}
+            title={title}
+          />
+        ))}
       </Stack>
     </DialogContent>
   );
-}
+};
 
 const LevelLabel = ({ level }) => (
   <Chip sx={{ mx: 0.2, fontWeight: "bold" }} label={level.name} />
@@ -55,17 +51,14 @@ const HideBox = ({ children, sx = {}, ...rest }) => {
     const { children } = current;
     const { y, width } = children[0].getBoundingClientRect();
 
-    for(let i = 1; i < children.length; i++){
+    for (let i = 1; i < children.length; i++) {
       const child = children[i];
       const { y: childY } = child.getBoundingClientRect();
-      child.style.maxWidth = (childY === y ? null : `${width}px`);
+      child.style.maxWidth = childY === y ? null : `${width}px`;
     }
-  }
+  };
 
-  useEventListener(
-    'resize',
-    debounce(handleResize, 100, { leading: true })
-  );
+  useEventListener("resize", debounce(handleResize, 100, { leading: true }));
 
   return (
     <Box
@@ -79,41 +72,38 @@ const HideBox = ({ children, sx = {}, ...rest }) => {
         justifyContent: "end",
         minWidth: "0px",
         overflow: "hidden",
-        ...sx
+        ...sx,
       }}
-      {...{...rest}}
+      {...{ ...rest }}
     >
       {children}
-    </Box>)
+    </Box>
+  );
 };
 
 const LocationSelect = () => {
-  const [ isOpen, setIsOpen ] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
   const levels = useRecoilValue(locationLevelsState);
 
   return (
     <Box>
       <HideBox onClick={() => setIsOpen(!isOpen)}>
-        {
-          [...levels].reverse().map(
-            ({ id, selected }) => (<LevelLabel key={id} level={selected} />)
-          )
-        }
+        {[...levels].reverse().map(({ id, selected }) => (
+          <LevelLabel key={id} level={selected} />
+        ))}
       </HideBox>
       <Dialog onClose={() => setIsOpen(false)} open={isOpen}>
         <IconButton
-          sx={{position: "absolute", right: "0.1rem", top: "0.1rem"}}
+          sx={{ position: "absolute", right: "0.1rem", top: "0.1rem" }}
           onClick={() => setIsOpen(false)}
         >
           <CloseIcon />
         </IconButton>
-        <DialogTitle>
-          Choose Location
-        </DialogTitle>
-        <LocationSelectDialog {...{setIsOpen}} />
+        <DialogTitle>Choose Location</DialogTitle>
+        <LocationSelectDialog {...{ setIsOpen }} />
       </Dialog>
     </Box>
   );
-}
+};
 
 export default LocationSelect;

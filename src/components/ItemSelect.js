@@ -1,8 +1,8 @@
-import Select from '@mui/material/Select';
-import MenuItem from '@mui/material/MenuItem';
-import InputLabel from '@mui/material/InputLabel';
-import FormControl from '@mui/material/FormControl';
-import ArrowDropDown from '@mui/icons-material/ArrowDropDown';
+import Select from "@mui/material/Select";
+import MenuItem from "@mui/material/MenuItem";
+import InputLabel from "@mui/material/InputLabel";
+import FormControl from "@mui/material/FormControl";
+import ArrowDropDown from "@mui/icons-material/ArrowDropDown";
 
 export default function ItemSelector({ item, items, setItem, title }) {
   const onlyOneOption = items.length === 1;
@@ -21,8 +21,10 @@ export default function ItemSelector({ item, items, setItem, title }) {
           onChange={handleChange}
           label={title}
         >
-          {items.map(d => (
-            <MenuItem key={d.id} value={d}>{d.name}</MenuItem>
+          {items.map((d) => (
+            <MenuItem key={d.id} value={d}>
+              {d.name}
+            </MenuItem>
           ))}
         </Select>
       </FormControl>
