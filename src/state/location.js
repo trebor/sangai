@@ -64,35 +64,50 @@ export const wardsState = selector({
   },
 });
 
-export const locationLevelsState = selector({
-  key: "locationLevels",
+export const locationLevelsMetaState = selector({
+  key: "locationLevelsMata",
   get: ({ get }) => {
     return [
       {
         id: "province",
         title: "Province",
-        options: get(provincesState),
-        selected: get(selectedProvinceState)
+        optionsState: provincesState,
+        selectedState: selectedProvinceState
       },
       {
         id: "district",
         title: "District",
-        options: get(districtsState),
-        selected: get(selectedDistrictState)
+        optionsState: districtsState,
+        selectedState:selectedDistrictState
       },
       {
         id: "municipality",
         title: "Municipality",
-        options: get(municipalitiesState),
-        selected: get(selectedMunicipalityState)
+        optionsState: municipalitiesState,
+        selectedState: selectedMunicipalityState
       },
       {
         id: "ward",
         title: "Ward",
-        options: get(wardsState),
-        selected: get(selectedWardState)
+        optionsState: wardsState,
+        selectedState: selectedWardState
       },
     ];
+  },
+});
+
+export const locationLevelsState = selector({
+  key: "locationLevels",
+  get: ({ get }) => get(locationLevelsMetaState)
+    .map(level => ({
+      ...level,
+      options: get(level.optionsState),
+      selected: get(level.selectedState)
+    })),
+  set: ({ get, set }, { item, levelId }) => {
+    const { selectedState } = get(locationLevelsMetaState)
+     .find(d => d.id === levelId);
+    set(selectedState, item);
   }
 });
 
@@ -123,5 +138,5 @@ export const wardGeojsonState = selector({
           && d.properties.sddmm === municipalityId
       )
     }
-  }
+  },
 });

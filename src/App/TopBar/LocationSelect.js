@@ -13,47 +13,26 @@ import { useRecoilState, useRecoilValue } from "recoil";
 
 import ItemSelect from "components/ItemSelect";
 import { locationLevelsState } from "state";
-import { wardsState, selectedWardState } from "state";
-import { districtsState, selectedDistrictState } from "state";
-import { provincesState, selectedProvinceState } from "state";
-import { municipalitiesState, selectedMunicipalityState } from "state";
 
 const LocationSelectDialog = () => {
-  const [
-    municipality,
-    setMunicipality
-  ] = useRecoilState(selectedMunicipalityState);
-  const [province, setProvince] = useRecoilState(selectedProvinceState);
-  const [district, setDistrict] = useRecoilState(selectedDistrictState);
-  const [ward, setWard] = useRecoilState(selectedWardState);
+  const [levels, setLevel] = useRecoilState(locationLevelsState);
 
   return (
     <DialogContent>
       <Stack spacing={2}>
-        <ItemSelect
-          items={useRecoilValue(provincesState)}
-          item={province}
-          setItem={setProvince}
-          title="Province"
-        />
-        <ItemSelect
-          items={useRecoilValue(districtsState)}
-          item={district}
-          setItem={setDistrict}
-          title="District"
-        />
-        <ItemSelect
-          items={useRecoilValue(municipalitiesState)}
-          item={municipality}
-          setItem={setMunicipality}
-          title="Municipality"
-        />
-        <ItemSelect
-          items={useRecoilValue(wardsState)}
-          item={ward}
-          setItem={setWard}
-          title="Ward"
-        />
+        {
+          levels.map(
+            ({ id, title, options, selected }) => (
+              <ItemSelect
+                key={id}
+                items={options}
+                item={selected}
+                setItem={item => setLevel({ item, levelId: id })}
+                title={title}
+              />
+            )
+          )
+        }
       </Stack>
     </DialogContent>
   );
