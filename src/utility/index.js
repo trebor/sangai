@@ -88,7 +88,8 @@ export const goodTypeToImage = (
   {
     outset = 200,
     opacity = 1,
-    cornerFactor = 0.25
+    cornerFactor = 0.25,
+    background = "white"
   } = {}
 ) => new Promise(resolve => {
   const {
@@ -114,9 +115,8 @@ export const goodTypeToImage = (
           ry="${corner}"
           width="${size}"
           height="${size}"
-          fill="white"
+          fill="${background}"
          />
-        <_circle r="${radius}" cx="${radius}" cy="${radius}" fill="white" />
         <g transform="translate(${translate})">
          <path d="${path}" fill="${color}" />
         </g>

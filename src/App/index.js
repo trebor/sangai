@@ -14,8 +14,8 @@ import { themeState } from 'state';
 export default function App() {
   return (
     <ThemeProvider theme={useRecoilValue(themeState)}>
-      <Suspense fallback={<Spinner />}>
-        <Box height="100%" display="flex" flexDirection="column">
+      <Box height="100%" display="flex" flexDirection="column">
+        <Suspense fallback={<Spinner />}>
           <Box sx={{ display: 'flex', flexGrow: 1 }}>
             <LeftBar />
             <TopBar />
@@ -32,8 +32,8 @@ export default function App() {
               </Suspense>
             </Box>
           </Box>
-        </Box>
-      </Suspense>
+        </Suspense>
+      </Box>
     </ThemeProvider>
   );
 }

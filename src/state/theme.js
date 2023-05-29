@@ -7,9 +7,6 @@ const themeOverride = {
   palette: {
     primary,
     secondary,
-    background: {
-      default: "#e4f0e2"
-    }
   }
 }
 
