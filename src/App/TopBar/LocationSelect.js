@@ -2,6 +2,8 @@ import Box from '@mui/material/Box';
 import Chip from '@mui/material/Chip';
 import Stack from '@mui/material/Stack';
 import Dialog from '@mui/material/Dialog';
+import CloseIcon from '@mui/icons-material/Close';
+import IconButton from '@mui/material/IconButton';
 import DialogTitle from '@mui/material/DialogTitle';
 import { debounce } from "lodash";
 import DialogContent from '@mui/material/DialogContent';
@@ -115,7 +117,15 @@ const LocationSelect = () => {
         }
       </HideBox>
       <Dialog onClose={() => setIsOpen(false)} open={isOpen}>
-        <DialogTitle>Choose Location</DialogTitle>
+        <IconButton
+          sx={{position: "absolute", right: "0.1rem", top: "0.1rem"}}
+          onClick={() => setIsOpen(false)}
+        >
+          <CloseIcon />
+        </IconButton>
+        <DialogTitle>
+          Choose Location
+        </DialogTitle>
         <LocationSelectDialog />
       </Dialog>
     </Box>
