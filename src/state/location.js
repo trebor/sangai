@@ -63,6 +63,53 @@ export const wardsState = selector({
   },
 });
 
+export const locationLevelsMetaState = selector({
+  key: "locationLevelsMata",
+  get: ({ get }) => {
+    return [
+      {
+        id: "province",
+        title: "Province",
+        optionsState: provincesState,
+        selectedState: selectedProvinceState
+      },
+      {
+        id: "district",
+        title: "District",
+        optionsState: districtsState,
+        selectedState: selectedDistrictState
+      },
+      {
+        id: "municipality",
+        title: "Municipality",
+        optionsState: municipalitiesState,
+        selectedState: selectedMunicipalityState
+      },
+      {
+        id: "ward",
+        title: "Ward",
+        optionsState: wardsState,
+        selectedState: selectedWardState
+      },
+    ];
+  },
+});
+
+export const locationLevelsState = selector({
+  key: "locationLevels",
+  get: ({ get }) => get(locationLevelsMetaState)
+    .map(level => ({
+      ...level,
+      options: get(level.optionsState),
+      selected: get(level.selectedState)
+    })),
+  set: ({ get, set }, { item, levelId }) => {
+    const { selectedState } = get(locationLevelsMetaState)
+     .find(d => d.id === levelId);
+    set(selectedState, item);
+  }
+});
+
 export const selectedWardState = atom({
   key: "selectedWard",
   default: selector({

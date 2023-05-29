@@ -265,7 +265,7 @@ const FeaturesPopup = ({ handleClose, popupProperties }) => {
       onClose={handleClose}
       closeButton={false}
       closeOnMove={true}
-      maxWidth="350px"
+      maxWidth="250px"
       offset={20}
     >
       { features.length > 1

@@ -5,7 +5,7 @@ import {
   selectedProvinceState,
   selectedDistrictState,
   selectedMunicipalityState,
-  selectedWardState
+  selectedWardState,
 } from "state";
 
 import { fetchGoodTypes, fetchPublicGoods } from "api";
@@ -29,8 +29,7 @@ export const goodTypesState = selector({
           ...goodType,
           ...GOODS_PROPERTIES_BY_ID[goodType.id],
         }))
-        .map(type => goodTypeToImage(type)
-            .then(image => ({
+            .map(type => goodTypeToImage(type).then(image => ({
               ...type,
               image,
             }))

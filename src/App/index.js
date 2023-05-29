@@ -8,23 +8,29 @@ import Map from './Map';
 import TopBar from './TopBar';
 import LeftBar from './LeftBar';
 import Spinner from 'components/Spinner';
+import DrawerHeader from "components/DrawerHeader";
 import { themeState } from 'state';
 
 export default function App() {
   return (
     <ThemeProvider theme={useRecoilValue(themeState)}>
-      <Box sx={{
-        height: "100%",
-        display: "flex",
-        flexDirection: "column",
-      }}>
+      <Box height="100%" display="flex" flexDirection="column">
         <Suspense fallback={<Spinner />}>
-          <TopBar />
-          <Box sx={{ display: "flex", flex: "1 1 0" }}>
+          <Box sx={{ display: 'flex', flexGrow: 1 }}>
             <LeftBar />
-            <Suspense fallback={<Spinner />}>
-              <Map />
-            </Suspense>
+            <TopBar />
+            <Box
+              display="flex"
+              flexDirection="column"
+              flexGrow="1"
+            >
+              <DrawerHeader />
+              <Suspense fallback={<Spinner />}>
+                <Box flexGrow="1">
+                  <Map />
+                </Box>
+              </Suspense>
+            </Box>
           </Box>
         </Suspense>
       </Box>
