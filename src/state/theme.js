@@ -6,7 +6,7 @@ import { atom } from "recoil";
 const themeOverride = {
   palette: {
     primary,
-    secondary,
+    secondary
   }
 }
 

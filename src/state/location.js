@@ -8,7 +8,6 @@ import {
   fetchWardsGeojson
 } from "api";
 
-
 // provinces
 
 export const provincesState = selector({
@@ -138,5 +137,5 @@ export const wardGeojsonState = selector({
           && d.properties.sddmm === municipalityId
       )
     }
-  },
+  }
 });
