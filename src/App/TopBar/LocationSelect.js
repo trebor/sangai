@@ -1,8 +1,9 @@
-import { debounce } from "lodash";
 import Box from '@mui/material/Box';
 import Chip from '@mui/material/Chip';
+import Stack from '@mui/material/Stack';
 import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
+import { debounce } from "lodash";
 import DialogContent from '@mui/material/DialogContent';
 import { useRef, useState } from "react";
 import { useEventListener } from 'usehooks-ts'
@@ -26,30 +27,32 @@ const LocationSelectDialog = () => {
 
   return (
     <DialogContent>
-      <ItemSelect
-        items={useRecoilValue(provincesState)}
-        item={province}
-        setItem={setProvince}
-        title="Province"
-      />
-      <ItemSelect
-        items={useRecoilValue(districtsState)}
-        item={district}
-        setItem={setDistrict}
-        title="District"
-      />
-      <ItemSelect
-        items={useRecoilValue(municipalitiesState)}
-        item={municipality}
-        setItem={setMunicipality}
-        title="Municipality"
-      />
-      <ItemSelect
-        items={useRecoilValue(wardsState)}
-        item={ward}
-        setItem={setWard}
-        title="Ward"
-      />
+      <Stack spacing={2}>
+        <ItemSelect
+          items={useRecoilValue(provincesState)}
+          item={province}
+          setItem={setProvince}
+          title="Province"
+        />
+        <ItemSelect
+          items={useRecoilValue(districtsState)}
+          item={district}
+          setItem={setDistrict}
+          title="District"
+        />
+        <ItemSelect
+          items={useRecoilValue(municipalitiesState)}
+          item={municipality}
+          setItem={setMunicipality}
+          title="Municipality"
+        />
+        <ItemSelect
+          items={useRecoilValue(wardsState)}
+          item={ward}
+          setItem={setWard}
+          title="Ward"
+        />
+      </Stack>
     </DialogContent>
   );
 }
