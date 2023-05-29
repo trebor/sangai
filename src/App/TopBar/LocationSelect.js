@@ -44,7 +44,7 @@ const LevelLabel = ({ level }) => (
     sx={{
       borderRadius: "6px",
       mx: 0.3,
-      fontWeight: "bold"
+      fontWeight: "bold",
     }}
     label={level.name}
   />
