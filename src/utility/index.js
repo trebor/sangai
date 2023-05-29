@@ -23,36 +23,43 @@ export const GOODS_PROPERTIES_BY_ID = ({
     icon: faGraduationCap,
     color: schemeSet1[3],
     nameField: 'Name of the educational institute',
+    title: "Schools"
   },
   health_centers: {
     icon: faHouseMedical,
     color: schemeSet1[0],
     nameField: 'Name of the health institute',
+    title: "Health Centers"
   },
   public_space: {
     icon: faTree,
     color: schemeSet1[2],
     nameField: 'Name of the public space',
+    title: "Public Spaces"
   },
   public_toilets: {
     icon: faRestroom,
     color: schemeSet1[4],
     nameField: 'Name of the public toilet',
+    title: "Public Toilets"
   },
   public_water: {
     icon: faFaucet,
     color: schemeSet1[1],
     nameField: 'Name of the public water point',
+    title: "Water Points"
   },
   roads: {
     icon: faRoad,
     color: schemeSet1[8],
     nameField: 'Name of the road',
+    title: "Roads"
   },
   solid_waste: {
     icon: faTrash,
     color: schemeSet1[6],
     nameField: 'Name of the road solid waste management',
+    title: "Trash"
   },
 });
 
@@ -97,7 +104,6 @@ export const goodTypeToImage = (
     icon: { icon : [ width, height,,, path ] }
   } = type;
   const size = Math.max(width, height) + outset;
-  const radius = size / 2;
   const corner = size * cornerFactor;
   const translate = [width, height].map(dim => (size - dim) / 2);
 

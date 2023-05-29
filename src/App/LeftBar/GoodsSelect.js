@@ -11,7 +11,7 @@ import {
 } from "state";
 
 const Good = ({ good, isOpen }) => {
-  const { name, color, icon } = good;
+  const { title, color, icon } = good;
   const [ selectedGoods, setSelectedGoods ] = useRecoilState(
     selectedGoodTypesState
   );
@@ -26,9 +26,9 @@ const Good = ({ good, isOpen }) => {
 
   return (
     <DrawerItem
-      tooltip={`${isSelected ? "Hide" : "Show"} ${name}`}
+      tooltip={`${isSelected ? "Hide" : "Show"} ${title}`}
       onClick={handleChange}
-      label={name}
+      label={title}
     >
       <Box position="relative">
         <FontAwesomeIcon

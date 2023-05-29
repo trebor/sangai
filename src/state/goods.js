@@ -24,7 +24,6 @@ export const goodTypesState = selector({
   key: "goodTypes",
   get: ({ get }) => fetchGoodTypes()
     .then(goodTypes => {
-
       const typePromises = goodTypes
         .map(goodType => ({
           ...goodType,
