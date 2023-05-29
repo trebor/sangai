@@ -11,7 +11,7 @@ import {
 
 // constans
 
-export const HEADER_DRAWER_WIDTH = 240;
+export const HEADER_DRAWER_WIDTH = 205;
 export const MAPBOX_TOKEN = 'pk.eyJ1IjoidHJlYm9yZXNxdWUiLCJhIjoiY2o1eDNwaXN6MDBjczJ3cW81ODB5MXVhaiJ9.laxgliFuMkrQdZEMiEofaw';
 export const CUSTOM_MAP_STYLE = "mapbox://styles/treboresque/clhxswny2007g01pvf92rggc6";
 export const DEFAULT_DISTRICT = "Dhankuta";
