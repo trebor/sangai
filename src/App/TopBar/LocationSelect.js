@@ -40,7 +40,14 @@ const LocationSelectDialog = ({ setIsOpen }) => {
 };
 
 const LevelLabel = ({ level }) => (
-  <Chip sx={{ mx: 0.2, fontWeight: "bold" }} label={level.name} />
+  <Chip
+    sx={{
+      borderRadius: "6px",
+      mx: 0.3,
+      fontWeight: "bold",
+    }}
+    label={level.name}
+  />
 );
 
 const HideBox = ({ children, sx = {}, ...rest }) => {
