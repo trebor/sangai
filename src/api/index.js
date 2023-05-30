@@ -1,4 +1,4 @@
-import wardsGeoJson from "data/nepal-wards.json";
+import wardsGeoJson from "data/nepal-wards-filtered.json";
 import { API_HOST_NAME, getUserLang } from "utility";
 
 export const fetchPublicGoods = (
