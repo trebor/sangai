@@ -224,7 +224,7 @@ const ClusterPopupContent = ({ features }) => {
               pl: 1,
             }}
           >
-            {good.name}
+            {good.title}
           </Typography>
         </Box>
       ))}
