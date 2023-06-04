@@ -65,6 +65,7 @@ const HideBox = ({ children, sx = {}, ...rest }) => {
     }
   }, 100, { leading: true });
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(handleResize, []);
   useEventListener("resize", handleResize);
 
