@@ -35,13 +35,13 @@ const Configure = () => {
   const [showClusters, setShowClusters] = useRecoilState(showClustersState);
 
   return (
-    <List>
+    <List sx={{pt: 0}}>
       <DrawerItem
         label="Cluster Goods"
         tooltip={
           showClusters
             ? "Click to show goods on the map separately"
-            : "Click to cluster  goods on the map"
+            : "Click to cluster goods on the map"
         }
       >
         <Switch
