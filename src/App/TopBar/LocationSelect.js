@@ -7,8 +7,8 @@ import IconButton from "@mui/material/IconButton";
 import DialogTitle from "@mui/material/DialogTitle";
 import { debounce } from "lodash";
 import DialogContent from "@mui/material/DialogContent";
-import { useRef, useState } from "react";
 import { useEventListener } from "usehooks-ts";
+import { useEffect, useRef, useState } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 
 import ItemSelect from "components/ItemSelect";
@@ -53,7 +53,7 @@ const LevelLabel = ({ level }) => (
 const HideBox = ({ children, sx = {}, ...rest }) => {
   const boxRef = useRef();
 
-  const handleResize = () => {
+  const handleResize = debounce(() => {
     const { current } = boxRef;
     const { children } = current;
     const { y, width } = children[0].getBoundingClientRect();
@@ -63,9 +63,10 @@ const HideBox = ({ children, sx = {}, ...rest }) => {
       const { y: childY } = child.getBoundingClientRect();
       child.style.maxWidth = childY === y ? null : `${width}px`;
     }
-  };
+  }, 100, { leading: true });
 
-  useEventListener("resize", debounce(handleResize, 100, { leading: true }));
+  useEffect(handleResize, []);
+  useEventListener("resize", handleResize);
 
   return (
     <Box
