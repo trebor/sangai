@@ -12,7 +12,7 @@ import { fetchGoodTypes, fetchPublicGoods } from "api";
 
 export const showClustersState = atom({
   key: "showClusters",
-  default: true,
+  default: false,
 });
 
 export const imagesLoadedState = atom({
