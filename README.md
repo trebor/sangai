@@ -2,7 +2,7 @@
 
 [San̐gai](https://sangai.sujit.net.np/) is a web application used to browse public goods in Nepal. The Nepali word san̐gai means "together".
 
-# Develompent Dtails
+## Develompent Dtails
 
 This project currently uses:
 
