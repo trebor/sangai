@@ -1,8 +1,23 @@
-import { Source, Layer } from "react-map-gl";
+import { difference } from '@turf/turf';
 import { useRecoilValue } from "recoil";
+import { Source, Layer } from "react-map-gl";
+
 import { wardGeojsonState } from "state";
 
-const configuration = {
+const ENTIRE_EARTH = {
+  coordinates: [
+    [
+      [-180, -90],
+      [ 180, -90],
+      [ 180,  90],
+      [-180,  90],
+      [-180, -90]
+    ]
+  ],
+  type: "Polygon"
+};
+
+const LAYER_CONFIGURATION = {
   id: "wards",
   type: "fill",
   paint: {
@@ -12,11 +27,16 @@ const configuration = {
 };
 
 const WardLayer = () => {
-  const wardGeojson = useRecoilValue(wardGeojsonState);
+  const { features, ...wardGeojson } = useRecoilValue(wardGeojsonState);
+
+  const data = {
+    ...wardGeojson,
+    features: features.map(feature => difference(ENTIRE_EARTH, feature))
+  };
 
   return (
-    <Source id="ward" type="geojson" data={wardGeojson}>
-      <Layer {...configuration} />
+    <Source id="ward" type="geojson" data={data}>
+      <Layer {...LAYER_CONFIGURATION} />
     </Source>
   );
 };
