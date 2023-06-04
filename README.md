@@ -1,4 +1,10 @@
-# This project currently uses:
+# San̐gai
+
+[San̐gai](https://sangai.sujit.net.np/) is a web application used to browse public goods in Nepal. The Nepali word san̐gai means "together".
+
+# Develompent Dtails
+
+This project currently uses:
 
 - [Create React App](https://github.com/facebook/create-react-app) - build environment
 - [React](https://reactjs.org/) - development framework
