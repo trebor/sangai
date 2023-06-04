@@ -93,7 +93,15 @@ export const getUserLang = () => navigator.language || navigator.userLanguage;
 
 export const goodTypeToImage = (
   type,
-  { outset = 200, opacity = 1, cornerFactor = 0.25, background = "white" } = {}
+  {
+    iconSize = 600,
+    borderFactor = 0.03,
+    cornerFactor = 0.2,
+    outsetFactor = 0.5,
+    opacity = 1,
+    backgroundColor = "white",
+    borderColor="#ccc"
+  } = {}
 ) =>
   new Promise((resolve) => {
     const {
@@ -102,9 +110,11 @@ export const goodTypeToImage = (
         icon: [width, height, , , path],
       },
     } = type;
-    const size = Math.max(width, height) + outset;
+    const maxDim = Math.max(width, height);
+    const size = maxDim + outsetFactor * maxDim;
+    const borderSize = size * borderFactor;
     const corner = size * cornerFactor;
-    const translate = [width, height].map((dim) => (size - dim) / 2);
+    const centerTranslate = [width, height].map((dim) => (size - dim) / 2);
 
     const svgXml = `
     <svg
@@ -116,13 +126,17 @@ export const goodTypeToImage = (
     >
       <g opacity="${opacity}">
         <rect
+          x="${borderSize}"
+          y="${borderSize}"
           rx="${corner}"
           ry="${corner}"
-          width="${size}"
-          height="${size}"
-          fill="${background}"
+          width="${size - borderSize * 2}"
+          height="${size - borderSize * 2}"
+          stroke="${borderColor}"
+          stroke-width="${borderSize}"
+          fill="${backgroundColor}"
          />
-        <g transform="translate(${translate})">
+        <g transform="translate(${centerTranslate})">
          <path d="${path}" fill="${color}" />
         </g>
       </g>
@@ -132,7 +146,7 @@ export const goodTypeToImage = (
       type: "image/svg+xml;charset=utf-8",
     });
 
-    const image = new Image(size, size);
+    const image = new Image(iconSize, iconSize);
     image.src = URL.createObjectURL(svgBlob);
     image.addEventListener("load", () => resolve(image));
   });
