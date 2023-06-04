@@ -97,10 +97,10 @@ export const goodTypeToImage = (
     iconSize = 600,
     borderFactor = 0.03,
     cornerFactor = 0.2,
-    outsetFactor = 0.4,
+    outsetFactor = 0.5,
     opacity = 1,
-    background = "white",
-    _background = "rgba(255, 255, 255, 0.6)"
+    backgroundColor = "white",
+    borderColor="#ccc"
   } = {}
 ) =>
   new Promise((resolve) => {
@@ -114,7 +114,6 @@ export const goodTypeToImage = (
     const size = maxDim + outsetFactor * maxDim;
     const borderSize = size * borderFactor;
     const corner = size * cornerFactor;
-    const iconTranslate = [borderSize, borderSize].map(d => -2 * d);
     const centerTranslate = [width, height].map((dim) => (size - dim) / 2);
 
     const svgXml = `
@@ -125,7 +124,7 @@ export const goodTypeToImage = (
       width="${size}"
       height="${size}"
     >
-      <g opacity="${opacity}" transform="translate(${iconTranslate})">
+      <g opacity="${opacity}">
         <rect
           x="${borderSize}"
           y="${borderSize}"
@@ -133,9 +132,9 @@ export const goodTypeToImage = (
           ry="${corner}"
           width="${size - borderSize * 2}"
           height="${size - borderSize * 2}"
-          stroke="#ddd"
+          stroke="${borderColor}"
           stroke-width="${borderSize}"
-          fill="${background}"
+          fill="${backgroundColor}"
          />
         <g transform="translate(${centerTranslate})">
          <path d="${path}" fill="${color}" />
