@@ -94,13 +94,13 @@ export const getUserLang = () => navigator.language || navigator.userLanguage;
 export const goodTypeToImage = (
   type,
   {
-    iconSize = 600,
+    iconSize = 800,
     borderFactor = 0.03,
     cornerFactor = 0.2,
     outsetFactor = 0.5,
     opacity = 1,
     backgroundColor = "white",
-    borderColor="#ccc"
+    borderColor = "#ccc",
   } = {}
 ) =>
   new Promise((resolve) => {

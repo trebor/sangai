@@ -1,7 +1,8 @@
 import Box from "@mui/material/Box";
-import { group } from "d3-array";
 import { useMap } from "react-map-gl";
 import Typography from "@mui/material/Typography";
+import { scalePow } from "d3-scale";
+import { group, extent } from "d3-array";
 import { useRecoilValue } from "recoil";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Layer, Source, Popup } from "react-map-gl";
@@ -13,34 +14,20 @@ import {
   showClustersState,
 } from "state";
 
+const CLUSTER_RADIUS = 55;
 const CLUSTER_COLOR = "#fff";
-const CLUSTERS = [
-  {
-    upto: 10,
-    radius: 30,
-    color: CLUSTER_COLOR,
-  },
-  {
-    upto: 20,
-    radius: 40,
-    color: CLUSTER_COLOR,
-  },
-  {
-    upto: 50,
-    radius: 50,
-    color: CLUSTER_COLOR,
-  },
-  {
-    upto: 100,
-    radius: 60,
-    color: CLUSTER_COLOR,
-  },
-  {
-    upto: 1000,
-    radius: 100,
-    color: CLUSTER_COLOR,
-  },
-];
+const CLUSTER_COUNT_UPTOS = [10, 25, 50, 100, 1000];
+
+const clusterRadiusScale = scalePow()
+  .exponent(0.1)
+  .domain(extent(CLUSTER_COUNT_UPTOS))
+  .range([CLUSTER_RADIUS * 0.4, CLUSTER_RADIUS]);
+
+const CLUSTERS = CLUSTER_COUNT_UPTOS.map((upto) => ({
+  upto,
+  radius: clusterRadiusScale(upto),
+  color: CLUSTER_COLOR,
+}));
 
 const clusterLayer = {
   id: "clusters",
@@ -75,23 +62,10 @@ const clusterCountLayer = {
   layout: {
     "text-field": "{point_count_abbreviated}",
     "text-font": ["DIN Offc Pro Medium", "Arial Unicode MS Bold"],
-    "text-size": 36,
+    "text-size": 34,
   },
   paint: {
     "text-color": "#444",
-  },
-};
-
-export const unclusteredPointLayer = {
-  id: "unclustered-point",
-  type: "circle",
-  source: "publicGoodsClusters",
-  filter: ["!", ["has", "point_count"]],
-  paint: {
-    "circle-color": "#11b4da",
-    "circle-radius": 4,
-    "circle-stroke-width": 1,
-    "circle-stroke-color": "#fff",
   },
 };
 
@@ -164,7 +138,7 @@ const ClusteredLayers = ({ id, cluster, onItemEnter, onItemExit }) => {
       type="geojson"
       data={publicGoodsGeojson}
       cluster={cluster}
-      clusterRadius={100}
+      clusterRadius={CLUSTER_RADIUS}
     >
       {layers.map((layer) => (
         <Layer
